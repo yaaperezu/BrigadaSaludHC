@@ -1,0 +1,3 @@
+rootProject.name = 'BrigadaSaludHC'
+
+include ':app'
