@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { actions, States } from '../store'
+import { actions } from '../store'
 import { Login } from './login'
 import { Button } from '../components'
 
 class MainLoginApp extends Component {
     render() {
-        const { doLogout, loggedIn, fullName } = this.props
+        const { doLogout, fullName } = this.props
 
-        if (!loggedIn) {
+        let userToken
+        const data = actions.user.getDataAsyncStorage('userToken')
+        data.then((token) => {
+            console.log('token:');
+            console.log(token);
+
+            userToken = token
+        });
+        
+        console.log(userToken)
+        if (!userToken) {
             return (
-                <View>
-                    <Login />
-                </View>
+                <Login />
             )
         }
+       
 
         return (
             <View>
@@ -34,13 +43,12 @@ class MainLoginApp extends Component {
 
 const mapStateToProps = state => {
     return {
-        loggedIn: state.user.loggedIn,
         fullName: state.user.fullName
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        doLogout: ()  => {
+        doLogout: () => {
             dispatch(actions.user.logout())
         }
     }

@@ -16,6 +16,7 @@ export default userReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.LOGIN:
             const p = action.payload
+            
             return {
                 loggedIn: true,
                 userId: p.userId,

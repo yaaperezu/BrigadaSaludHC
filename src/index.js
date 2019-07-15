@@ -1,18 +1,18 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import { Main } from './screens'
+import { NavigatorMain } from './navigators/navigatorMain'
 import { createStore } from './store'
+import { createAppContainer } from 'react-navigation';
 
 const store = createStore()
 
-/**
- * Root application.
- */
+const AppMainContainer = createAppContainer(NavigatorMain);
+
 const App = () => {
     return (
         <Provider store={store}>
-            <Main />
+            <AppMainContainer />
         </Provider>
     )
 }
