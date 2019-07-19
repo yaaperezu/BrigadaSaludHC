@@ -23,7 +23,7 @@ class AuthLoading extends React.Component {
     _bootstrapAsync = () => {
         actions.user.getDataAsyncStorage('userToken').then((userToken) => {
             console.log('--------   _bootstrapAsync' +  userToken);
-            this.props.navigation.navigate(userToken !== null ? 'App' : 'Auth');
+            this.props.navigation.navigate(userToken !== null ? 'Home' : 'Auth');
         }).catch(error => {
             this.setState({ error })
         })

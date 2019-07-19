@@ -9,7 +9,7 @@ export const login = (username: string, password: string) => {
 
         if (username === 'admin' && password === 'secret') {
             console.log('Login Action')
-            //saveDataAsyncStorage('userToken', username)
+            saveDataAsyncStorage('userToken', username)
             dispatch({
                 type: types.LOGIN,
                 payload: {
@@ -17,7 +17,7 @@ export const login = (username: string, password: string) => {
                     fullName: 'Yasser Perez'
                 }
             })
-
+            
         }
 
         dispatch(actions.app.loading(false))
@@ -34,7 +34,7 @@ export const logout = () => {
 
 export const saveDataAsyncStorage = async (keyData, valueData) => {
     try {
-        console.log('***************************************************');
+        console.log('*******************saveDataAsyncStorage********************************');
         console.log(valueData);
         await AsyncStorage.setItem(keyData, valueData)
     } catch (e) {

@@ -1,15 +1,10 @@
-import React from 'react'
-import {
-    StyleSheet,
-    View,
-    Image
-} from 'react-native'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { TextField } from 'react-native-material-textfield'
 import { actions, States } from '../store'
-import { Button } from '../components'
+import LoginUI from '../components/UI/LoginUI'
+import { IconButton } from 'react-native-paper'
 
-class Login extends React.Component {
+class Login extends Component {
 
     constructor(props) {
         super(props)
@@ -20,66 +15,65 @@ class Login extends React.Component {
         }
     }
 
-    static navigationOptions = {
-        headerTintColor: '#FFFFFF',
-        title: 'Brigada de Salud',
-        headerStyle: {
-            backgroundColor: '#00699a',
-        },
-    };
+    setNavigationColor = (color) => {
+        this.props.navigation.setParams({
+            backgroundColor: color
+        })
+    }
+
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Brigada de Salud',
+            headerStyle: {
+                backgroundColor: navigation.getParam('backgroundColor') || '#222'
+            }, 
+            headerTitleStyle: {
+                color: 'white'
+            },
+            headerRight: (
+                <IconButton
+                    icon="power-settings-new"
+                    color='white'
+                    />
+            ),
+        }
+    }
+
+    setUserName = (username) => {
+        this.setState({
+            username
+        })
+    }
+
+    setPassword = (password) => {
+        this.setState({
+            password
+        })
+    }
 
     render() {
         const { loading, doLogin } = this.props
 
         return (
-            <View style={styles.container}>
-                <Image
-                    style={styles.logoKeraltyImage}
-                    source={require('../assets/images/Keralty.jpg')} />
-               
-                <TextField
-                    label="Nombre Usuario"
-                    autoCapitalize="none"
-                    value={this.state.username}
-                    onChangeText={username => this.setState({ username })} />
-
-                <TextField
-                    label="Contraseña"
-                    autoCapitalize="none"
-                    value={this.state.password}
-                    onChangeText={password => this.setState({ password })}
-                    secureTextEntry={true} />
-
-                <Button 
-                    onPress={() => {
-                        doLogin(this.state.username, this.state.password)
-                    }}
-                >
-                    Login
-                </Button>
-            </View>
+            <LoginUI setUserName={this.setUserName}
+                setPassword={this.setPassword}
+                authenticateUser={this.authenticateUser}
+                setNavigationColor={this.setNavigationColor}
+            />
         )
     }
+
+    authenticateUser = () => {
+        console.log(':::::::::::::::::: _authenticateUser')
+        this.props.doLogin(this.state.username, this.state.password)
+        actions.user.getDataAsyncStorage('userToken').then((userToken) => {
+            console.log('--------   is _authenticateUser' + userToken);
+            this.props.navigation.navigate(userToken !== null ? 'Home' : 'Auth');
+        }).catch(error => {
+            this.setState({ error })
+        })
+    };
 };
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: 23,
-        margin: 10,
-    },
-    logoKeraltyImage: {
-        width: 150,
-        height: 150,
-        resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: 100,
-    },
-    getStartedText: {
-        fontSize: 17,
-        textAlign: 'center'
-    },
-
-});
 
 const mapStateToProps = state => {
     return {
