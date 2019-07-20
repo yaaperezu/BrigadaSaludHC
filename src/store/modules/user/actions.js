@@ -8,7 +8,6 @@ export const login = (username: string, password: string) => {
         dispatch(actions.app.loading())
 
         if (username === 'admin' && password === 'secret') {
-            console.log('Login Action')
             saveDataAsyncStorage('userToken', username)
             dispatch({
                 type: types.LOGIN,
@@ -17,7 +16,6 @@ export const login = (username: string, password: string) => {
                     fullName: 'Yasser Perez'
                 }
             })
-            
         }
 
         dispatch(actions.app.loading(false))
@@ -34,8 +32,6 @@ export const logout = () => {
 
 export const saveDataAsyncStorage = async (keyData, valueData) => {
     try {
-        console.log('*******************saveDataAsyncStorage********************************');
-        console.log(valueData);
         await AsyncStorage.setItem(keyData, valueData)
     } catch (e) {
         console.log(e)
@@ -44,9 +40,7 @@ export const saveDataAsyncStorage = async (keyData, valueData) => {
 
 export const getDataAsyncStorage = async (keyData) => {
     try {
-        console.log('---------------------'+keyData+'--------------------------------');
         const value = await AsyncStorage.getItem(keyData)
-        console.log(value)
         return value;
     } catch (e) {
         console.log(e)
@@ -55,7 +49,6 @@ export const getDataAsyncStorage = async (keyData) => {
 
 export const removeDataAsyncStorage = async (keyData) => {
     try {
-        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++');
         await AsyncStorage.removeItem(keyData)
     } catch (e) {
         console.log(e)

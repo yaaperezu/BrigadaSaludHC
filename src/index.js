@@ -8,12 +8,7 @@ import { createAppContainer } from 'react-navigation'
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper'
 
 const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: '#3BFF0F',
-        accent: '#1CA3FF'
-    }
+    ...DefaultTheme
 }
 
 const store = createStore()

@@ -1,11 +1,13 @@
 import { LoginScreen } from '../screens/LoginScreen'
+import { CreateUserScreen } from '../screens/user/CreateUserScreen'
 import { HomeScreen } from '../screens/HomeScreen'
 import { AuthLoadingScreen } from '../screens/AuthLoadingScreen'
 
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 export const LoginStack = createStackNavigator({ 
-    LoginIn: LoginScreen 
+    LoginIn: LoginScreen,
+    CreateUser: CreateUserScreen
 },{
     defaultNavigationOptions: ({navigation}) => {
         return {
@@ -18,6 +20,8 @@ export const LoginStack = createStackNavigator({
             }
         }
     }
+}, {
+    initialRouteName: 'LoginIn'
 });
 export const HomeStack = createStackNavigator({ Home: HomeScreen });
 

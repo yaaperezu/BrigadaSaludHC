@@ -4,8 +4,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: 30
+        alignItems: 'center'
     },
     formControl: {
         width: '90%',
