@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actions, States } from '../store'
 import LoginUI from '../components/UI/LoginUI'
+import { Alert } from 'react-native'
 
 class Login extends Component {
 
@@ -41,6 +42,10 @@ class Login extends Component {
         }).catch(error => {
             this.setState({ error })
         })
+
+        Alert.alert('Advertencia', 'El usuario/contraseña no corresponden', [{
+            text: 'Ok'
+        }]);
     };
 
     goCreateUser = () => {

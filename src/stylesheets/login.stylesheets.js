@@ -8,13 +8,22 @@ export default StyleSheet.create({
         marginTop: 30
     },
     formControl: {
-        width: '90%',
+        width: '95%',
         marginTop: 20
+    },
+    formControlButton: {
+        width: '95%',
+        marginTop: 10
     },
     containerImage: {
         justifyContent: 'center',
         resizeMode: 'stretch',
         width: 420,
         height: 250 
-    }
+    },
+    titleHC: {
+        fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+        fontWeight: '500',
+        fontSize: 30
+      }
 });

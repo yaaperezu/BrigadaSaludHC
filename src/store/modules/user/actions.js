@@ -1,13 +1,15 @@
 import * as types from './constants'
 import { actions } from '../'
 import AsyncStorage from '@react-native-community/async-storage'
+import ConexionRealm from '../../../data'
 
 export const login = (username: string, password: string) => {
     return dispatch => {
 
         dispatch(actions.app.loading())
 
-        if (username === 'admin' && password === 'secret') {
+        if (autheticateUserRealm(username, password)) {
+            console.log('autheticateUserRealm:  ')
             saveDataAsyncStorage('userToken', username)
             dispatch({
                 type: types.LOGIN,
@@ -19,6 +21,25 @@ export const login = (username: string, password: string) => {
         }
 
         dispatch(actions.app.loading(false))
+    }
+}
+
+export const autheticateUserRealm = (username, password) => {
+    let filteredUser = ''
+    let aut = false
+    try {
+        filteredUser = "nombreUsuario = '" + username + "'"
+        filteredUser += " AND contrasena = '" + password + "'"
+        console.log('filteredUser:  ' + filteredUser)
+        let usuarios = ConexionRealm.objects('Usuario').filtered(filteredUser)
+        console.log('usuarios:  ' + usuarios)
+        if (usuarios.length > 0) {
+            aut = true
+        }
+        return aut;
+    } catch (e) {
+        console.log(e)
+        return false
     }
 }
 

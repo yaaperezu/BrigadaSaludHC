@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {
     View,
+    ScrollView,
     Image
 } from 'react-native'
 import { TextInput, Button, Title, withTheme } from 'react-native-paper'
@@ -13,8 +14,8 @@ class LoginUI extends Component {
         super(props)
 
         this.state = {
-            username: 'admin',
-            password: 'secret'
+            username: '',
+            password: ''
         }
     }
 
@@ -36,13 +37,13 @@ class LoginUI extends Component {
 
     render() {
         return (
-            <View style={{flex:1}}>
+            <ScrollView style={{flex:1}}>
                 <Image source={require('../../assets/images/logo-family.jpg')}
                     style={stylesLogin.containerImage} />
 
                 <View style={stylesLogin.container}>
 
-                    <Title style={{ fontFamily: this.props.theme.fonts.medium }}>Historia Clínica</Title>
+                    <Title style={{ fontFamily: this.props.theme.fonts.thin, ...stylesLogin.titleHC }}>Historia Clínica</Title>
 
                     <TextInput
                         style={stylesLogin.formControl}
@@ -65,19 +66,22 @@ class LoginUI extends Component {
                         ...stylesLogin.formControl
                     }} />
 
-                    <Button mode="contained"
+                    <Button mode="contained" 
+                        style={stylesLogin.formControlButton}
+                        icon="send"
                         color={this.props.theme.colors.accent}
                         onPress={() => this.props.authenticateUser({username: this.state.username, password: this.state.password})}>
                         Iniciar sesión
                     </Button>
 
                     <Button mode="text"
+                        style={stylesLogin.formControlButton}
                         color={this.props.theme.colors.accent}
                         onPress={() => this.props.goCreateUser()}>
                         Registrarme
                     </Button>
                 </View>
-            </View>
+            </ScrollView>
 
         )
     }

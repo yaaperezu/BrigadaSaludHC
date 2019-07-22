@@ -3,12 +3,21 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
+        paddingTop: 15,
+        margin: 10
     },
     formControl: {
-        width: '90%',
+        width: '95%',
         marginTop: 20
+    },
+    formControlButton: {
+        width: '95%',
+        marginTop: 10
+    },
+    formControlDropdown: {
+        width: '95%',
+        marginTop: 20,
+        backgroundColor: 'transparent'
     },
     containerImage: {
         justifyContent: 'center',
