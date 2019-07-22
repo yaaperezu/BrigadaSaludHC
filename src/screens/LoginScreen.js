@@ -36,16 +36,17 @@ class Login extends Component {
 
     authenticateUser = ({ username, password }) => {
         this.props.doLogin(username, password)
-
         actions.user.getDataAsyncStorage('userToken').then((userToken) => {
+            if (userToken === null) {
+                Alert.alert('Advertencia', 'El usuario/contraseña no corresponden', [{
+                    text: 'Ok'
+                }]);
+            }
             this.props.navigation.navigate(userToken !== null ? 'Home' : 'Auth');
+            
         }).catch(error => {
             this.setState({ error })
         })
-
-        Alert.alert('Advertencia', 'El usuario/contraseña no corresponden', [{
-            text: 'Ok'
-        }]);
     };
 
     goCreateUser = () => {
