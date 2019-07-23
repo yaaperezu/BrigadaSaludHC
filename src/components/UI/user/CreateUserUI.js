@@ -205,7 +205,6 @@ class CreateUserUI extends Component {
     }
 
     registrarUsuario = () => {
-        console.log("::::: registro de usuarios");
         this.setState({
             validateTipoDoc: true,
             validateDocumento: true,
@@ -216,7 +215,6 @@ class CreateUserUI extends Component {
             validateUsername: true,
             validatePassword: true,
         })
-        console.log(this.esFormValido());
         if (this.esFormValido()) {
             this.props.createUser(this.state)
         } else {
@@ -232,6 +230,7 @@ class CreateUserUI extends Component {
 
                 <Title style={{ fontFamily: this.props.theme.fonts.medium }}>Datos del Usuario</Title>
 
+        
                 <Dropdown
                     containerStyle={stylesUser.formControlDropdown}
                     label='Tipo de Documento'

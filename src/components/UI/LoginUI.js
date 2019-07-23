@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import {
     View,
     ScrollView,
-    Image
+    Image,
+    Alert
 } from 'react-native'
-import { TextInput, Button, Title, withTheme } from 'react-native-paper'
+import { TextInput, Button, Title, withTheme, HelperText } from 'react-native-paper'
 import stylesLogin from '../../stylesheets/login.stylesheets'
 
 
@@ -15,7 +16,9 @@ class LoginUI extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            validateUsername: false,
+            validatePassword: false
         }
     }
 
@@ -25,19 +28,69 @@ class LoginUI extends Component {
 
     setUserName = (username) => {
         this.setState({
-            username
+            username,
+            validateUsername: true
         })
     }
 
     setPassword = (password) => {
         this.setState({
-            password
+            password,
+            validatePassword: true
         })
+    }
+
+    esInvalidoUserName = () => {
+        let valid = false
+        if (this.state.validateUsername) {
+            if (this.state.username === '' || this.state.username.indexOf(" ") > 0) {
+                valid = true
+            } else if (this.state.username.length <= 5) {
+                valid = true
+            }
+        }
+        return valid
+    }
+
+    esInvalidoPassword = () => {
+        let valid = false
+        if (this.state.validatePassword) {
+            if (this.state.password === '' || this.state.password.length < 6) {
+                valid = true
+            }
+        }
+        return valid
+    }
+
+    esFormValido = () => {
+        let valid = true
+        if (this.state.username === '' || this.state.username.indexOf(" ") > 0) {
+            return false
+        } else if (this.state.username.length <= 5) {
+            return false
+        } else if (this.state.password === '' || this.state.password.length < 6) {
+            return false
+        }
+        return valid
+    }
+
+    authenticateUser = () => {
+        this.setState({
+            validateUsername: true,
+            validatePassword: true
+        })
+        if (this.esFormValido()) {
+            this.props.authenticateUser({ username: this.state.username, password: this.state.password })
+        } else {
+            Alert.alert('Advertencia', 'Por favor ingrese los datos para la autenticación', [{
+                text: 'Ok'
+            }]);
+        }
     }
 
     render() {
         return (
-            <ScrollView style={{flex:1}}>
+            <ScrollView style={{ flex: 1 }}>
                 <Image source={require('../../assets/images/logo-family.jpg')}
                     style={stylesLogin.containerImage} />
 
@@ -50,15 +103,28 @@ class LoginUI extends Component {
                         label="Nombre Usuario"
                         autoCapitalize="none"
                         value={this.state.username}
-                        onChangeText={(text) => this.setUserName(text)} />
+                        onChangeText={(text) => this.setUserName(text)} 
+                        textContentType="emailAddress"
+                        keyboardType="email-address"/>
+                    <HelperText
+                        type="error"
+                        visible={this.esInvalidoUserName()}>
+                        El Usuario es requerido de minimo 5 caracteres y sin espacios
+                    </HelperText>
 
                     <TextInput
                         style={stylesLogin.formControl}
                         label="Contraseña"
                         autoCapitalize="none"
                         value={this.state.password}
-                        onChangeText={(text) => this.setPassword(text)}
+                        onChangeText={(text) => this.setPassword(text)} 
+                        textContentType="password"
                         secureTextEntry={true} />
+                    <HelperText
+                        type="error"
+                        visible={this.esInvalidoPassword()}>
+                        La contraseña es requerida de minimo 6 caracteres
+                    </HelperText>
 
                     <View style={{
                         flexDirection: 'row',
@@ -66,11 +132,11 @@ class LoginUI extends Component {
                         ...stylesLogin.formControl
                     }} />
 
-                    <Button mode="contained" 
+                    <Button mode="contained"
                         style={stylesLogin.formControlButton}
                         icon="send"
                         color={this.props.theme.colors.accent}
-                        onPress={() => this.props.authenticateUser({username: this.state.username, password: this.state.password})}>
+                        onPress={() => this.authenticateUser()}>
                         Iniciar sesión
                     </Button>
 
@@ -81,6 +147,7 @@ class LoginUI extends Component {
                         Registrarme
                     </Button>
                 </View>
+                
             </ScrollView>
 
         )

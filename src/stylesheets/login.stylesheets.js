@@ -4,12 +4,12 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        alignItems: 'center',
         marginTop: 30
     },
     formControl: {
         width: '95%',
-        marginTop: 20
+        marginTop: 20,
+        flex: 1
     },
     formControlButton: {
         width: '95%',
@@ -18,12 +18,13 @@ export default StyleSheet.create({
     containerImage: {
         justifyContent: 'center',
         resizeMode: 'stretch',
-        width: 420,
-        height: 250 
+        width: '100%',
+        height: 200 
     },
     titleHC: {
         fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
         fontWeight: '500',
-        fontSize: 30
+        fontSize: 30,
+        marginTop: 50
       }
 });
