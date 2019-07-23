@@ -1,7 +1,7 @@
 import { LoginScreen } from '../screens/LoginScreen'
 import { CreateUserScreen } from '../screens/user/CreateUserScreen'
-import { HomeScreen } from '../screens/HomeScreen'
 import { AuthLoadingScreen } from '../screens/AuthLoadingScreen'
+import TabHomeNavigator from '../navigators/TabHomeNavigator';
 
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
@@ -23,13 +23,12 @@ export const LoginStack = createStackNavigator({
 }, {
     initialRouteName: 'LoginIn'
 });
-export const HomeStack = createStackNavigator({ Home: HomeScreen });
 
 export const NavigatorMain = createSwitchNavigator(
     {
         AuthLoading: AuthLoadingScreen,
-        Home: HomeStack,
         Auth: LoginStack,
+        Home: TabHomeNavigator
     },
     {
         initialRouteName: 'AuthLoading',

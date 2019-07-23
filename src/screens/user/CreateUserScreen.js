@@ -24,7 +24,7 @@ class CreateUser extends Component {
         return {
             title: 'Usuarios Aplicación',
             headerStyle: {
-                backgroundColor: navigation.getParam('backgroundColor') || '#222'
+                backgroundColor: navigation.getParam('backgroundColor') || '#77C742'
             },
             headerTitleStyle: {
                 color: 'white'
