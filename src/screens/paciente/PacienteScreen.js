@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import PacienteUI from '../../components/UI/paciente/PacienteUI'
+import { IconButton } from 'react-native-paper'
+import { connect } from 'react-redux'
+import { actions, States } from '../../store'
 
-export default class PacienteScreen extends Component {
+class Paciente extends Component {
 
     constructor(props) {
         super(props)
@@ -21,8 +24,23 @@ export default class PacienteScreen extends Component {
             },
             headerTitleStyle: {
                 color: 'white'
-            }
+            },
+            headerRight: (
+                <IconButton
+                    icon="power-settings-new"
+                    color="white"
+                    onPress={navigation.getParam('logout')} />
+            )
         }
+    }
+
+    componentDidMount() {
+        this.props.navigation.setParams({ logout: this.logoutUser });
+    }
+
+    logoutUser = () => {
+        this.props.doLogout()
+        this.props.navigation.navigate('AuthLoading');
     }
 
     goAddPaciente = () => {
@@ -37,3 +55,18 @@ export default class PacienteScreen extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        app: state.app
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        doLogout: () => {
+            dispatch(actions.user.logout())
+        }
+    }
+}
+
+export const PacienteScreen = connect(mapStateToProps, mapDispatchToProps)(Paciente)
