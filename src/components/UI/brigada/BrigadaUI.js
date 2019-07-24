@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { Title, withTheme, FAB } from 'react-native-paper';
+import { Title, withTheme, FAB } from 'react-native-paper'
 import stylePaciente from '../../../stylesheets/paciente.stylesheets'
 
 class BrigadaUI extends Component {

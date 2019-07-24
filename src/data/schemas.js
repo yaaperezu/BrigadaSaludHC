@@ -1,4 +1,5 @@
 
+
 export class BrigadaModel {
     constructor() {
         this.id = 0;
@@ -22,6 +23,33 @@ export const BrigadaSchema = {
 		ciudad: 'string',
 		fechai: 'date',
 		fechaf: 'date',
+		cargadoSistema: 'bool',
+		createdAt: 'date',
+		updatedAt: 'date'
+	}
+};
+
+export class ServidorAPIModel {
+    constructor() {
+        this.id = 0;
+		this.protocolo = '';
+		this.server = '';
+		this.port = '',
+		this.estado = ''
+		this.cargadoSistema = false;
+		this.createdAt = new Date();
+	    this.updatedAt = new Date();
+    }
+}
+export const ServidorAPISchema = {
+	name: 'ServidorAPI',
+	primaryKey: 'id',
+	properties: {
+		id: { type: 'int', indexed: true },
+		protocolo: 'string',
+		server: 'string',
+		port: 'string',
+		estado: 'string',
 		cargadoSistema: 'bool',
 		createdAt: 'date',
 		updatedAt: 'date'

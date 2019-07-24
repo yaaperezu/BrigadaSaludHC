@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { GetUserScreen } from '../screens/user/GetUserScreen'
 import { BrigadaScreen } from '../screens/brigada/BrigadaScreen'
 import { AddBrigadaScreen } from '../screens/brigada/AddBrigadaScreen'
-import { ConfiguracionAPIScreen } from '../screens/api/Configuracion'
+import { ConfiguracionAPIScreen } from '../screens/api/ConfiguracionAPIScreen'
 import { SincronizacionScreen } from '../screens/sincronizacion/SincronizacionScreen'
 
 const HomeStackNavigator = createStackNavigator(

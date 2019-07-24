@@ -34,19 +34,15 @@ class ConfiguracionAPI extends Component {
         });
     }
 
-    logoutUser = () => {
-        this.props.doLogout()
-        this.props.navigation.navigate('AuthLoading');
-    }
-
-    goPerfilUser = () => {
-        this.props.navigation.navigate('HomeDrawer');
+    goAddConfApi = () => {
+        this.props.navigation.navigate('AddConfApi')
     }
 
     render() {
         return (
             <ConfiguracionAPIUI 
-                setNavigationColor={this.setNavigationColor}/>
+                setNavigationColor={this.setNavigationColor} 
+                goAddConfApi={this.goAddConfApi}/>
         );
     }
 }
