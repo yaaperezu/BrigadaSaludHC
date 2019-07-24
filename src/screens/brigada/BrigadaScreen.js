@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { Text, View } from 'react-native'
-import { IconButton } from 'react-native-paper'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actions, States } from '../../store'
+import BrigadaUI from '../../components/UI/brigada/BrigadaUI'
 
-class Atencion extends Component {
+class Brigada extends Component {
 
     constructor(props) {
         super(props)
@@ -18,27 +17,13 @@ class Atencion extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            title: 'Atención de Pacientes',
+            title: 'Brigada de Salud',
             headerStyle: {
-                backgroundColor: navigation.getParam('backgroundColor') || '#77C742'
+                backgroundColor: '#6F9479'
             },
             headerTitleStyle: {
                 color: 'white'
-            },
-            headerLeft: (
-                <IconButton
-                    icon="perm-identity"
-                    color="white"
-                    onPress={navigation.getParam('goPerfilUser')} 
-                    size={28}/>
-            ),
-            headerRight: (
-                <IconButton
-                    icon="power-settings-new"
-                    color="white"
-                    onPress={navigation.getParam('logout')}
-                    size={28} />
-            )
+            }
         }
     }
 
@@ -60,9 +45,8 @@ class Atencion extends Component {
 
     render() {
         return (
-            <View>
-                <Text>AtencionScreen Screen</Text>
-            </View>
+            <BrigadaUI 
+                setNavigationColor={this.setNavigationColor}/>
         );
     }
 }
@@ -80,4 +64,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export const AtencionScreen = connect(mapStateToProps, mapDispatchToProps)(Atencion)
+export const BrigadaScreen = connect(mapStateToProps, mapDispatchToProps)(Brigada)

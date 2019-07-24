@@ -10,8 +10,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const PacienteStack = createStackNavigator({
     Paciente: PacienteScreen,
     AddPaciente: AddPacienteScreen
-},{
-    initialRouteName: 'Paciente'
 })
 
 PacienteStack.navigationOptions = {

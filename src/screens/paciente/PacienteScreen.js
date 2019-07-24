@@ -25,22 +25,37 @@ class Paciente extends Component {
             headerTitleStyle: {
                 color: 'white'
             },
+            headerLeft: (
+                <IconButton
+                    icon="perm-identity"
+                    color="white"
+                    onPress={navigation.getParam('goPerfilUser')} 
+                    size={28}/>
+            ),
             headerRight: (
                 <IconButton
                     icon="power-settings-new"
                     color="white"
-                    onPress={navigation.getParam('logout')} />
-            )
+                    onPress={navigation.getParam('logout')}
+                    size={28} />
+            ) 
         }
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({ logout: this.logoutUser });
+        this.props.navigation.setParams({ 
+            logout: this.logoutUser, 
+            goPerfilUser: this.goPerfilUser 
+        });
     }
 
     logoutUser = () => {
         this.props.doLogout()
         this.props.navigation.navigate('AuthLoading');
+    }
+
+    goPerfilUser = () => {
+        this.props.navigation.navigate('HomeDrawer');
     }
 
     goAddPaciente = () => {
