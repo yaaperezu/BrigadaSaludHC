@@ -1,5 +1,34 @@
+
+export class BrigadaModel {
+    constructor() {
+        this.id = 0;
+		this.descripcion = '';
+		this.lugar = '';
+		this.ciudad = '';
+		this.fechai = new Date();
+		this.fechaf = new Date();
+		this.cargadoSistema = false;
+		this.createdAt = new Date();
+	    this.updatedAt = new Date();
+    }
+}
+export const BrigadaSchema = {
+	name: 'Brigada',
+	primaryKey: 'id',
+	properties: {
+		id: { type: 'int', indexed: true },
+		descripcion: 'string',
+		lugar: 'string',
+		ciudad: 'string',
+		fechai: 'date',
+		fechaf: 'date',
+		cargadoSistema: 'bool',
+		createdAt: 'date',
+		updatedAt: 'date'
+	}
+};
+
 export class UserModel {
-    
     constructor() {
         this.id = 0;
 		this.tipoDoc = '';
@@ -15,7 +44,6 @@ export class UserModel {
 	    this.updatedAt = new Date();
     }
 }
-
 export const UsuarioSchema = {
 	name: 'Usuario',
 	primaryKey: 'id',

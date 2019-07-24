@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { Title, withTheme } from 'react-native-paper';
+import { Title, withTheme, FAB } from 'react-native-paper';
 import stylePaciente from '../../../stylesheets/paciente.stylesheets'
 
 class BrigadaUI extends Component {
@@ -16,8 +16,14 @@ class BrigadaUI extends Component {
     render() {
         return (
             <View style={stylePaciente.container}>
-                <Title>Brigada</Title>
-          
+                <Title>Paciente</Title>
+
+                <FAB
+                    style={{backgroundColor: this.props.theme.colors.accent, ...stylePaciente.fab}}
+                    icon="add"
+                    color="white"
+                    onPress={() => this.props.goAddBrigada()}
+                />
             </View>
         )
     }

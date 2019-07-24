@@ -43,10 +43,15 @@ class Brigada extends Component {
         this.props.navigation.navigate('HomeDrawer');
     }
 
+    goAddBrigada = () => {
+        this.props.navigation.navigate('AddBrigada')
+    }
+
     render() {
         return (
             <BrigadaUI 
-                setNavigationColor={this.setNavigationColor}/>
+                setNavigationColor={this.setNavigationColor} 
+                goAddBrigada={this.goAddBrigada}/>
         );
     }
 }

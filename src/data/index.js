@@ -5,7 +5,7 @@ var Realm = require('realm');
 
 let ConexionRealm = new Realm({
     path: 'BrigadaSaludDatabase.realm',
-    schema: [SchemasBD.UsuarioSchema, SchemasBD.PacienteSchema, SchemasBD.AntencionSchema],
+    schema: [SchemasBD.BrigadaSchema, SchemasBD.UsuarioSchema, SchemasBD.PacienteSchema, SchemasBD.AntencionSchema],
     schemaVersion: 0
 });
 

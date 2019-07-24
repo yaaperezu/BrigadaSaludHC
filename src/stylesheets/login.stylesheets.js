@@ -13,7 +13,7 @@ export default StyleSheet.create({
     },
     formControlButton: {
         width: '95%',
-        marginTop: 10
+        margin: 10
     },
     containerImage: {
         justifyContent: 'center',

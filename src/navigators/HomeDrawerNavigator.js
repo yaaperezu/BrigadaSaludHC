@@ -4,6 +4,7 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { GetUserScreen } from '../screens/user/GetUserScreen'
 import { BrigadaScreen } from '../screens/brigada/BrigadaScreen'
+import { AddBrigadaScreen } from '../screens/brigada/AddBrigadaScreen'
 import { ConfiguracionAPIScreen } from '../screens/api/Configuracion'
 import { SincronizacionScreen } from '../screens/sincronizacion/SincronizacionScreen'
 
@@ -40,7 +41,8 @@ const HomeStackNavigator = createStackNavigator(
 
 const BriadaStackNavigator = createStackNavigator(
     {
-        BrigadaNavigator: BrigadaScreen
+        BrigadaNavigator: BrigadaScreen,
+        AddBrigada: AddBrigadaScreen
     },
     {
         defaultNavigationOptions: ({ navigation }) => {
