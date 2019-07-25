@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { View, Alert, ScrollView } from 'react-native'
-import { Title, withTheme, Button, TextInput, HelperText } from 'react-native-paper';
+import { Title, withTheme, Button, TextInput, HelperText } from 'react-native-paper'
+import { Dropdown } from 'react-native-material-dropdown'
 import styleBrigada from '../../../stylesheets/brigada.stylesheets'
+import * as properties from '../../../data/util.conf'
 
 class AddConfiguracionUI extends Component {
 
@@ -15,7 +17,8 @@ class AddConfiguracionUI extends Component {
             estado: '',
             validateProtocolo: false,
             validateServer: false,
-            validatePort: false
+            validatePort: false,
+            validateEstado: false
         }
     }
 
@@ -23,52 +26,58 @@ class AddConfiguracionUI extends Component {
         this.props.setNavigationColor(this.props.theme.colors.primary)
     }
 
-    setDescripcion = (descripcion) => {
+    setProtocolo = (protocolo) => {
         this.setState({
-            descripcion,
-            validateTipoDoc: true,
-            validateDocumento: true
+            protocolo,
+            validateProtocolo: true
         })
     }
 
-    setLugar = (lugar) => {
+    setServer = (server) => {
         this.setState({
-            lugar,
-            validateLugar: true
+            server,
+            validateServer: true
         })
     }
 
-    setCiudad = (ciudad) => {
+    setPort = (port) => {
         this.setState({
-            ciudad,
-            validateCiudad: true
+            port,
+            validatePort: true
         })
     }
 
-    esInvalidoDescripcion = () => {
+    setEstado = (estado) => {
+        this.setState({
+            estado,
+            validateEstado: true
+        })
+    }
+
+    esInvalidoProtocolo = () => {
         let invalido = false
-        if (this.state.validateDescripcion) {
-            if (this.state.descripcion === '') {
+        if (this.state.validateProtocolo) {
+            if (this.state.protocolo === '') {
                 invalido = true
             }
         }
         return invalido
     }
 
-    esInvalidoLugar = () => {
+    esInvalidoServer = () => {
         let valid = false
-        if (this.state.validateLugar) {
-            if (this.state.lugar === '' || this.state.lugar.length <= 3) {
+        if (this.state.validateServer) {
+            if (this.state.server === '' || this.state.server.length <= 3) {
                 valid = true
             }
         }
         return valid
     }
 
-    esInvalidoCiudad = () => {
+    esInvalidoPort = () => {
         let valid = false
-        if (this.state.validateCiudad) {
-            if (this.state.ciudad === '' || this.state.ciudad.length <= 3) {
+        if (this.state.validatePort) {
+            if (this.state.port === '') {
                 valid = true
             }
         }
@@ -77,24 +86,26 @@ class AddConfiguracionUI extends Component {
 
     esFormValido = () => {
         let valid = true
-        if (this.state.descripcion === '') {
+        if (this.state.protocolo === '') {
             return false
-        } else if (this.state.lugar === '' || this.state.lugar.length <= 3) {
+        } else if (this.state.server === '' || this.state.server.length <= 3) {
             return false
-        } else if (this.state.ciudad === '' || this.state.ciudad.length <= 3) {
+        } else if (this.state.port === '') {
+            return false
+        } else if (this.state.estado === '') {
             return false
         }
         return valid
     }
 
-    registraBrigada = () => {
+    registrarConfAPI = () => {
         this.setState({
-            validateDescripcion: true,
-            validateLugar: true,
-            validateCiudad: true
+            validateProtocolo: true,
+            validateServer: true,
+            validatePort: true
         })
         if (this.esFormValido()) {
-            this.props.registrarBrigada(this.state)
+            this.props.registrarConfAPI(this.state)
         } else {
             Alert.alert('Advertencia', 'Por favor valide los datos del formulario', [{
                 text: 'Ok'
@@ -106,65 +117,70 @@ class AddConfiguracionUI extends Component {
         return (
             <ScrollView style={styleBrigada.container}>
 
-                <Title style={{ fontFamily: this.props.theme.fonts.medium }}>Datos de la Brigada</Title>
+                <Title style={{ fontFamily: this.props.theme.fonts.medium }}>Configuración API</Title>
 
-                <TextInput
-                    style={styleBrigada.formControl}
-                    label="Descripción"
-                    autoCapitalize="none"
-                    value={this.state.descripcion}
-                    onChangeText={(descripcion) => this.setDescripcion(descripcion)}
+                <Dropdown
+                    containerStyle={styleBrigada.formControlDropdown}
+                    label='Protocolo'
+                    data={properties.protocoloProperties()}
+                    onChangeText={(protocolo) => this.setProtocolo({ protocolo })}
                 />
                 <HelperText
                     type="error"
-                    visible={this.esInvalidoDescripcion()}>
-                    La descripción es requerida
+                    visible={this.esInvalidoProtocolo()}>
+                    El protocolo es requerido
                 </HelperText>
 
                 <TextInput
                     style={styleBrigada.formControl}
-                    label="Lugar"
+                    label="Servidor"
                     autoCapitalize="none"
-                    value={this.state.lugar}
-                    onChangeText={(lugar) => this.setLugar(lugar)}
+                    value={this.state.server}
+                    onChangeText={(server) => this.setServer(server)}
                 />
                 <HelperText
                     type="error"
-                    visible={this.esInvalidoLugar()}>
-                    El lugar es requerido
+                    visible={this.esInvalidoServer()}>
+                    El servidor es requerida
                 </HelperText>
 
                 <TextInput
                     style={styleBrigada.formControl}
-                    label="Ciudad"
+                    label="Puerto"
                     autoCapitalize="none"
-                    value={this.state.ciudad}
-                    onChangeText={(ciudad) => this.setCiudad(ciudad)}
+                    value={this.state.port}
+                    onChangeText={(port) => this.setPort(port)}
                 />
                 <HelperText
                     type="error"
-                    visible={this.esInvalidoCiudad()}>
-                    La ciudad es requerida
+                    visible={this.esInvalidoPort()}>
+                    El puesto es requerido
                 </HelperText>
 
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    ...styleBrigada.formControl
-                }} />
+                <Dropdown
+                    containerStyle={styleBrigada.formControlDropdown}
+                    label='Estado'
+                    data={properties.estadoRegistroProperties()}
+                    onChangeText={(estado) => this.setEstado({ estado })}
+                />
+                <HelperText
+                    type="error"
+                    visible={this.esInvalidoProtocolo()}>
+                    El estado es requerido
+                </HelperText>
 
                 <View style={{ height: 20 }} />
 
                 <Button mode="contained"
                     style={styleBrigada.formControlButton}
                     color={this.props.theme.colors.accent}
-                    onPress={() => this.registraBrigada(this.state)}>
+                    onPress={() => this.registrarConfAPI(this.state)}>
                     Guardar
                 </Button>
                 <Button mode="text"
                     style={styleBrigada.formControlButton}
                     color={this.props.theme.colors.accent}
-                    onPress={() => this.props.goBrigadaNavigator()}>
+                    onPress={() => this.props.goConfAppNavigator()}>
                     Cancelar
                 </Button>
 

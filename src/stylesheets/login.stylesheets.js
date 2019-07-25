@@ -4,7 +4,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'flex-start',
-        marginTop: 30
+        marginTop: 10
     },
     formControl: {
         width: '95%',
@@ -13,13 +13,13 @@ export default StyleSheet.create({
     },
     formControlButton: {
         width: '95%',
-        margin: 10
+        margin: 5
     },
     containerImage: {
         justifyContent: 'center',
         resizeMode: 'stretch',
         width: '100%',
-        height: 200 
+        height: 230 
     },
     titleHC: {
         fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',

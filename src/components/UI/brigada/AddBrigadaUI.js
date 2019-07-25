@@ -28,8 +28,7 @@ class AddBrigadaUI extends Component {
     setDescripcion = (descripcion) => {
         this.setState({
             descripcion,
-            validateTipoDoc: true,
-            validateDocumento: true
+            validateDescripcion: true
         })
     }
 

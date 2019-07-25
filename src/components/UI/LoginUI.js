@@ -91,12 +91,13 @@ class LoginUI extends Component {
     render() {
         return (
             <ScrollView style={{ flex: 1 }}>
-                <Image source={require('../../assets/images/logo-family.jpg')}
+                <Image source={require('../../assets/images/computer-hc-brigada.jpg')}
                     style={stylesLogin.containerImage} />
 
                 <View style={stylesLogin.container}>
 
-                    <Title style={{ fontFamily: this.props.theme.fonts.thin, ...stylesLogin.titleHC }}>Historia Clínica</Title>
+                    <Title style={{ fontFamily: this.props.theme.fonts.thin, color: this.props.theme.colors.primary, ...stylesLogin.titleHC }}
+                        >Historia Clínica</Title>
 
                     <TextInput
                         style={stylesLogin.formControl}

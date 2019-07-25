@@ -6,6 +6,7 @@ import { GetUserScreen } from '../screens/user/GetUserScreen'
 import { BrigadaScreen } from '../screens/brigada/BrigadaScreen'
 import { AddBrigadaScreen } from '../screens/brigada/AddBrigadaScreen'
 import { ConfiguracionAPIScreen } from '../screens/api/ConfiguracionAPIScreen'
+import { AddConfiguracionAPIScreen } from '../screens/api/AddConfiguracionAPIScreen'
 import { SincronizacionScreen } from '../screens/sincronizacion/SincronizacionScreen'
 
 const HomeStackNavigator = createStackNavigator(
@@ -73,7 +74,8 @@ const BriadaStackNavigator = createStackNavigator(
 
 const ConfAPIStackNavigator = createStackNavigator(
     {
-        ConfAPINavigator: ConfiguracionAPIScreen
+        ConfAPINavigator: ConfiguracionAPIScreen,
+        AddConfiguracionAPI: AddConfiguracionAPIScreen
     },
     {
         defaultNavigationOptions: ({ navigation }) => {

@@ -35,7 +35,7 @@ class ConfiguracionAPI extends Component {
     }
 
     goAddConfApi = () => {
-        this.props.navigation.navigate('AddConfApi')
+        this.props.navigation.navigate('AddConfiguracionAPI')
     }
 
     render() {
