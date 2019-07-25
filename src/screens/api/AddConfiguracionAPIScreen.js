@@ -11,10 +11,10 @@ class AddConfiguracionAPI extends Component {
     constructor(props) {
         super(props)
 
-        this.listarBrigadaApp()
+        this.listarConfAPI()
     }
 
-    listarBrigadaApp = () => {
+    listarConfAPI = () => {
         let servidorApi = ConexionRealm.objects('ServidorAPI')
         console.log("servidorApi:::  " + servidorApi)
         let listServApi = Object.values(servidorApi)
@@ -40,7 +40,7 @@ class AddConfiguracionAPI extends Component {
         }
     }
 
-    goBrigadaNavigator = () => {
+    goConfAPINavigator = () => {
         this.props.navigation.navigate('ConfAPINavigator')
     }
 
@@ -48,7 +48,7 @@ class AddConfiguracionAPI extends Component {
         return (
             <AddConfiguracionAPIUI 
                 setNavigationColor={this.setNavigationColor}
-                goConfAppNavigator={this.goConfAppNavigator}
+                goConfAPINavigator={this.goConfAPINavigator}
                 registrarConfAPI={this.registrarConfAPI}/>
         );
     }

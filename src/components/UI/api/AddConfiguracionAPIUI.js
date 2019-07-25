@@ -180,7 +180,7 @@ class AddConfiguracionUI extends Component {
                 <Button mode="text"
                     style={styleBrigada.formControlButton}
                     color={this.props.theme.colors.accent}
-                    onPress={() => this.props.goConfAppNavigator()}>
+                    onPress={() => this.props.goConfAPINavigator()}>
                     Cancelar
                 </Button>
 
