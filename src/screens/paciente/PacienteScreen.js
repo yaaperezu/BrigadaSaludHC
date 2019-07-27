@@ -43,8 +43,6 @@ class PacienteScreen extends Component {
     }
 
     componentDidMount() {
-        console.log('ooooooooooooooooooooooooooooooooooooooo')
-        console.log(actions)
         this.props.navigation.setParams({ 
             logout: this.logoutUser, 
             goPerfilUser: this.goPerfilUser 

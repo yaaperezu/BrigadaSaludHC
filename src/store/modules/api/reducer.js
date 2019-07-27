@@ -10,9 +10,6 @@ const initialState = {
 }
 
 export default confApiReducer = (state = initialState, action) => {
-    console.log('REDUCER API')
-    console.log(action.payload)
-    console.log(state)
     switch (action.type) {
         case types.CREATE_CONF:
             const p = action.payload

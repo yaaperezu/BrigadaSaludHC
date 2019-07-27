@@ -41,7 +41,6 @@ export const registrarConfAPI = (confApi) => {
 }
 
 export const listarAllConfAPI = () => {
-    console.log('-----------------------------------------------------------')
     return dispatch => {
         
         let listAllConfAPI = ConexionRealm.objects('ServidorAPI')

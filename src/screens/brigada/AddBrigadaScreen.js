@@ -16,9 +16,7 @@ class AddBrigadaScreen extends Component {
 
     listarBrigadaApp = () => {
         let brigada = ConexionRealm.objects('Brigada')
-        console.log("brigada:::  " + brigada)
         listBrigada = Object.values(brigada)
-        console.log(listBrigada)
         return listBrigada
     }
 
@@ -54,7 +52,6 @@ class AddBrigadaScreen extends Component {
     }
 
     registrarBrigada = (brigada) => {
-        console.log(brigada)
         let brigadaNew = new SchemaBD.BrigadaModel();
         brigadaNew.descripcion = brigada.descripcion
         brigadaNew.lugar = brigada.lugar
@@ -73,7 +70,6 @@ class AddBrigadaScreen extends Component {
             brigadaNew.createdAt = new Date();
             brigadaNew.updatedAt = new Date();
 
-            console.log(brigadaNew)
             ConexionRealm.create('Brigada', brigadaNew);
             Alert.alert(
                 'Éxito',

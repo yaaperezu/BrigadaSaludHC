@@ -34,9 +34,7 @@ class CreateUserScreen extends Component {
 
     listarUsuariosApp = () => {
         let usuarios = ConexionRealm.objects('Usuario')
-        console.log("usuarios:::  " + usuarios)
         listUsuarios = Object.values(usuarios)
-        console.log(listUsuarios)
         return listUsuarios
     }
 

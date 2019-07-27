@@ -23,8 +23,6 @@ export const registrarConfAPI = (confApi) => {
 
                 ConexionRealm.create('ServidorAPI', servAPINew);
             });
-            console.log('----------------------------------------')
-            console.log(servAPINew)
             let listAllConfAPI = ConexionRealm.objects('ServidorAPI')
             dispatch({
                 type: types.CREATE_CONF,
@@ -62,9 +60,7 @@ export const autheticateUserRealm = (username, password) => {
     try {
         filteredUser = "nombreUsuario = '" + username + "'"
         filteredUser += " AND contrasena = '" + password + "'"
-        console.log('filteredUser:  ' + filteredUser)
         let usuarios = ConexionRealm.objects('Usuario').filtered(filteredUser)
-        console.log('usuarios:  ' + usuarios)
         if (usuarios.length > 0) {
             aut = true
         }

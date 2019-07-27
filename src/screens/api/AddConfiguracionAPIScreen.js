@@ -42,8 +42,6 @@ class AddConfiguracionAPIScreen extends Component {
     }
 
     registrarConfAPI = (server) => {
-        console.log('Registrar Conf Api')
-        console.log(this.props.confApi)
         this.props.registrarConfAPI(server)
         
         if( this.props.confApi.listAllConfAPI.length > 0 ) {

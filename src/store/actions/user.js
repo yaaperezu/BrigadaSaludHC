@@ -6,7 +6,6 @@ export const login = user => {
 
         let usuarioAut = autheticateUserRealm(user.username, user.password)
         if (usuarioAut !== null) {
-            console.log('autheticateUserRealm:  ')
             saveDataAsyncStorage('userToken', user.username)
             dispatch({
                 type: 'LOGIN',
@@ -23,9 +22,7 @@ export const autheticateUserRealm = (username, password) => {
     try {
         filteredUser = "nombreUsuario = '" + username + "'"
         filteredUser += " AND contrasena = '" + password + "'"
-        console.log('filteredUser:  ' + filteredUser)
         let usuarios = ConexionRealm.objects('Usuario').filtered(filteredUser)
-        console.log('usuarios:  ' + usuarios)
         if (usuarios.length > 0) {
             usuario = usuarios[0];
         }

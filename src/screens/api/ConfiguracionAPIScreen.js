@@ -40,9 +40,7 @@ class ConfiguracionAPIScreen extends Component {
     }
 
     listarConfAPI = () => {
-        console.log("------listarConfAPI  ")
         this.props.listarAllConfAPI()
-        console.log(this.props.confApi.listConfAPI)
     }
 
     goAddConfApi = () => {
