@@ -1,28 +1,21 @@
-import { UserState, user } from './user'
-import { AppState, app } from './app'
+import { user } from './user'
+import { app } from './app'
+import { confApi } from './api'
 
-/**
- * Root states.
- */
-export type States = {
-    app: AppState,
-    user: UserState
-}
-
-/**
- * Root reducers.
- */
 export const reducers = {
     app: app.reducer,
-    user: user.reducer
+    user: user.reducer,
+    confApi: confApi.reducer
 }
 
-/**
- * Root actions.
- */
 export const actions = {
     app: app.actions,
-    user: user.actions
+    user: user.actions,
+    confApi: confApi.actions
 }
 
-export { app, user }
+export {
+    app,
+    user,
+    confApi
+}

@@ -1,31 +1,25 @@
-import * as types from './constants'
 import AsyncStorage from '@react-native-community/async-storage'
-import ConexionRealm from '../../../data'
+import ConexionRealm from '../../data'
 
-export const login = (username: string, password: string) => {
+export const login = user => {
     return dispatch => {
 
-        dispatch(actions.app.loading())
-
-        if (autheticateUserRealm(username, password)) {
+        let usuarioAut = autheticateUserRealm(user.username, user.password)
+        if (usuarioAut !== null) {
             console.log('autheticateUserRealm:  ')
-            saveDataAsyncStorage('userToken', username)
+            saveDataAsyncStorage('userToken', user.username)
             dispatch({
-                type: types.LOGIN,
-                payload: {
-                    userId: username,
-                    fullName: 'Yasser Perez'
-                }
+                type: 'LOGIN',
+                user: usuarioAut
             })
         }
 
-        dispatch(actions.app.loading(false))
     }
 }
 
 export const autheticateUserRealm = (username, password) => {
     let filteredUser = ''
-    let aut = false
+    let usuario = null
     try {
         filteredUser = "nombreUsuario = '" + username + "'"
         filteredUser += " AND contrasena = '" + password + "'"
@@ -33,20 +27,20 @@ export const autheticateUserRealm = (username, password) => {
         let usuarios = ConexionRealm.objects('Usuario').filtered(filteredUser)
         console.log('usuarios:  ' + usuarios)
         if (usuarios.length > 0) {
-            aut = true
+            usuario = usuarios[0];
         }
-        return aut;
     } catch (e) {
         console.log(e)
-        return false
+        return null
     }
+    return usuario
 }
 
 export const logout = () => {
     removeDataAsyncStorage('userToken')
     clearAllDataAsyncStorage()
     return {
-        type: types.LOGOUT
+        type: 'LOGOUT'
     }
 }
 

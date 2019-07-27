@@ -6,9 +6,9 @@ import {
     View,
 } from 'react-native';
 import { connect } from 'react-redux'
-import { actions, States } from '../store'
+import * as actions from '../store/actions'
 
-class AuthLoading extends React.Component {
+class AuthLoadingScreen extends React.Component {
     static navigationOptions = {
         header: null,
     };
@@ -22,7 +22,6 @@ class AuthLoading extends React.Component {
 
     _bootstrapAsync = () => {
         actions.user.getDataAsyncStorage('userToken').then((userToken) => {
-            console.log('--------   _bootstrapAsync' +  userToken);
             this.props.navigation.navigate(userToken !== null ? 'Home' : 'Auth');
         }).catch(error => {
             this.setState({ error })
@@ -48,16 +47,13 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = state => {
-    return {
-        loading: state.app.loading
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogin: (username, password) => {
-            dispatch(actions.user.login(username, password))
-        }
-    }
-}
-export const AuthLoadingScreen = connect(mapStateToProps, mapDispatchToProps)(AuthLoading);
+
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogin: (username, password) => dispatch(actions.user.login({ username, password })),
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLoadingScreen);

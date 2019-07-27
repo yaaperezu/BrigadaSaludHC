@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
 import ConfiguracionAPIUI from '../../components/UI/api/ConfiguracionAPIUI'
+import * as actions from '../../store/actions'
 
-class ConfiguracionAPI extends Component {
+class ConfiguracionAPIScreen extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            listConfAPI: {}
+        }
+        this.listarConfAPI()
     }
 
     setNavigationColor = (color) => {
@@ -34,6 +39,12 @@ class ConfiguracionAPI extends Component {
         });
     }
 
+    listarConfAPI = () => {
+        console.log("------listarConfAPI  ")
+        this.props.listarAllConfAPI()
+        console.log(this.props.confApi.listConfAPI)
+    }
+
     goAddConfApi = () => {
         this.props.navigation.navigate('AddConfiguracionAPI')
     }
@@ -42,22 +53,18 @@ class ConfiguracionAPI extends Component {
         return (
             <ConfiguracionAPIUI 
                 setNavigationColor={this.setNavigationColor} 
-                goAddConfApi={this.goAddConfApi}/>
+                goAddConfApi={this.goAddConfApi}
+                dataListConfAPI={this.props.confApi.listAllConfAPI}/>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const ConfiguracionAPIScreen = connect(mapStateToProps, mapDispatchToProps)(ConfiguracionAPI)
+const mapStateToProps = state => ({
+    user: state.user,
+    confApi: state.confApi
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout()),
+    listarAllConfAPI: () => dispatch(actions.confApi.listarAllConfAPI())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ConfiguracionAPIScreen);

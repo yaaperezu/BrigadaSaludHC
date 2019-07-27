@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { actions, States } from '../store'
 import LoginUI from '../components/UI/LoginUI'
 import { Alert } from 'react-native'
+import * as actions from '../store/actions/'
 
-class Login extends Component {
+class LoginScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -23,7 +23,6 @@ class Login extends Component {
     }
 
     render() {
-        const { loading, doLogin } = this.props
 
         return (
             <LoginUI
@@ -43,7 +42,7 @@ class Login extends Component {
                 }]);
             }
             this.props.navigation.navigate(userToken !== null ? 'Home' : 'Auth');
-            
+
         }).catch(error => {
             this.setState({ error })
         })
@@ -54,16 +53,12 @@ class Login extends Component {
     };
 };
 
-const mapStateToProps = state => {
-    return {
-        loading: state.app.loading
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogin: (username, password) => {
-            dispatch(actions.user.login(username, password))
-        }
-    }
-}
-export const LoginScreen = connect(mapStateToProps, mapDispatchToProps)(Login);
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogin: (username, password) => dispatch(actions.user.login({ username, password })),
+    doLogout: () => dispatch(actions.confApi.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

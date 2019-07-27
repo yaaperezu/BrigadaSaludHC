@@ -1,10 +1,8 @@
 import React from 'react'
 import { Provider as StoreProvider } from 'react-redux'
-
-import { NavigatorMain } from './navigators/navigatorMain'
-import { createStore } from './store'
+import store from './store'
 import { createAppContainer } from 'react-navigation'
-
+import { NavigatorMain } from './navigators/NavigatorMain'
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper'
 
 const MyTheme = {
@@ -17,8 +15,6 @@ const MyTheme = {
         accent: '#2D66FA',
     }
 }
-console.log(MyTheme)
-const store = createStore()
 
 const AppMainContainer = createAppContainer(NavigatorMain);
 

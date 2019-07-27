@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { IconButton } from 'react-native-paper'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
+import * as actions from '../../store/actions'
 
-class ConsultaHC extends Component {
+class ConsultaHCScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -67,17 +67,11 @@ class ConsultaHC extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const ConsultaHCScreen = connect(mapStateToProps, mapDispatchToProps)(ConsultaHC)
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ConsultaHCScreen);

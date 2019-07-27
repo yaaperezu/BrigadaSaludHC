@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import AddPacienteUI from '../../components/UI/paciente/AddPacienteUI'
 import { IconButton } from 'react-native-paper'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
+import * as actions from '../../store/actions'
 
-class AddPaciente extends Component {
+class AddPacienteScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -66,17 +66,11 @@ class AddPaciente extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const AddPacienteScreen = connect(mapStateToProps, mapDispatchToProps)(AddPaciente)
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AddPacienteScreen);

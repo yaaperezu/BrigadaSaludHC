@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native'
 import { IconButton } from 'react-native-paper'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
+import * as actions from '../../store/actions'
 
-class Atencion extends Component {
+class AtencionScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -67,17 +67,12 @@ class Atencion extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const AtencionScreen = connect(mapStateToProps, mapDispatchToProps)(Atencion)
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogin: (username, password) => dispatch(actions.user.login({ username, password })),
+    doLogout: () => dispatch(actions.confApi.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AtencionScreen);

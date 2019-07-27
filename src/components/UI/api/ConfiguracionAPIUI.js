@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { Title, withTheme, FAB } from 'react-native-paper'
-import stylePaciente from '../../../stylesheets/paciente.stylesheets'
+import { View, Text } from 'react-native'
+import { withTheme, FAB } from 'react-native-paper'
+import styleBase from '../../../stylesheets/base.stylesheets'
+import { FlatList } from 'react-native-gesture-handler'
+import Empty from '../utilities/Empty';
+import ConfApiCardUI from './ConfApiCardUI'
 
 class ConfiguracionAPIUI extends Component {
 
@@ -15,11 +18,18 @@ class ConfiguracionAPIUI extends Component {
 
     render() {
         return (
-            <View style={stylePaciente.container}>
-                <Title>Configuración API</Title>
+            <View style={styleBase.container}>
+                
+                <FlatList
+                    data={this.props.dataListConfAPI} 
+                    ListEmptyComponent={Empty} 
+                    style={{width: '100%'}}
+                    renderItem={({ item }) => <ConfApiCardUI key={item.id} confApi={item} />} 
+                    keyExtractor={(item, index) => index.toString()}/>
+                    
 
                 <FAB
-                    style={{backgroundColor: this.props.theme.colors.accent, ...stylePaciente.fab}}
+                    style={{ backgroundColor: this.props.theme.colors.accent, ...styleBase.fab }}
                     icon="add"
                     color="white"
                     onPress={() => this.props.goAddConfApi()}

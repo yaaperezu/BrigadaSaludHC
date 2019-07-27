@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
 import CreateUserUI from '../../components/UI/user/CreateUserUI'
 import ConexionRealm from '../../data'
 import * as SchemaBD from '../../data/schemas'
 import { Alert } from 'react-native'
+import * as actions from '../../store/actions'
 
-class CreateUser extends Component {
+class CreateUserScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -61,11 +61,11 @@ class CreateUser extends Component {
         userModelNew.especialidad = user.especialidad.especialidad
         userModelNew.nombreUsuario = user.username
         userModelNew.contrasena = user.password
+        
+        let usuariosApp = ConexionRealm.objects('Usuario').sorted('id', true)
 
         ConexionRealm.write(() => {
-            var ID = ConexionRealm.objects('Usuario').sorted('id', true).length > 0
-                ? ConexionRealm.objects('Usuario').sorted('id', true)[0].id + 1
-                : 1;
+            var ID = usuariosApp.length > 0 ? usuariosApp[0].id + 1 : 1;
             
             userModelNew.id = ID;
             userModelNew.createdAt = new Date();
@@ -91,16 +91,11 @@ class CreateUser extends Component {
     };
 };
 
-const mapStateToProps = state => {
-    return {
-        loading: state.app.loading
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogin: (username, password) => {
-            dispatch(actions.user.login(username, password))
-        }
-    }
-}
-export const CreateUserScreen = connect(mapStateToProps, mapDispatchToProps)(CreateUser);
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CreateUserScreen);

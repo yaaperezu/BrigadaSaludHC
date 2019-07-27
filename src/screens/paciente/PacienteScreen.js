@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PacienteUI from '../../components/UI/paciente/PacienteUI'
 import { IconButton } from 'react-native-paper'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
+import * as actions from '../../store/actions'
 
-class Paciente extends Component {
+class PacienteScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -43,6 +43,8 @@ class Paciente extends Component {
     }
 
     componentDidMount() {
+        console.log('ooooooooooooooooooooooooooooooooooooooo')
+        console.log(actions)
         this.props.navigation.setParams({ 
             logout: this.logoutUser, 
             goPerfilUser: this.goPerfilUser 
@@ -71,17 +73,11 @@ class Paciente extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const PacienteScreen = connect(mapStateToProps, mapDispatchToProps)(Paciente)
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(PacienteScreen);

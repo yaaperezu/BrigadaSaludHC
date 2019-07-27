@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
 import CreateUserUI from '../../components/UI/user/CreateUserUI'
 import ConexionRealm from '../../data'
 import * as SchemaBD from '../../data/schemas'
 import { Alert } from 'react-native'
+import * as actions from '../../store/actions'
 
-class GetUser extends Component {
+class GetUserScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -91,16 +91,11 @@ class GetUser extends Component {
     };
 };
 
-const mapStateToProps = state => {
-    return {
-        loading: state.app.loading
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogin: (username, password) => {
-            dispatch(actions.user.login(username, password))
-        }
-    }
-}
-export const GetUserScreen = connect(mapStateToProps, mapDispatchToProps)(GetUser);
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(GetUserScreen);

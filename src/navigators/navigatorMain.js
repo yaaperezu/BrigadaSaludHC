@@ -1,8 +1,8 @@
-import { LoginScreen } from '../screens/LoginScreen'
-import { CreateUserScreen } from '../screens/user/CreateUserScreen'
-import { AuthLoadingScreen } from '../screens/AuthLoadingScreen'
-import TabHomeNavigator from '../navigators/TabHomeNavigator'
-import HomeDrawerNavigator from '../navigators/HomeDrawerNavigator'
+import LoginScreen from '../screens/LoginScreen'
+import CreateUserScreen from '../screens/user/CreateUserScreen'
+import AuthLoadingScreen from '../screens/AuthLoadingScreen'
+import TabHomeNavigator from './TabHomeNavigator'
+import HomeDrawerNavigator from './HomeDrawerNavigator'
 
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 

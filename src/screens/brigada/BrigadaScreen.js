@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
 import BrigadaUI from '../../components/UI/brigada/BrigadaUI'
+import * as actions from '../../store/actions'
 
-class Brigada extends Component {
+class BrigadaScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -56,17 +56,11 @@ class Brigada extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const BrigadaScreen = connect(mapStateToProps, mapDispatchToProps)(Brigada)
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(BrigadaScreen);

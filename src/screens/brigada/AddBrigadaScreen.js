@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import AddBrigadaUI from '../../components/UI/brigada/AddBrigadaUI'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
 import ConexionRealm from '../../data'
 import * as SchemaBD from '../../data/schemas'
 import { Alert } from 'react-native'
+import * as actions from '../../store/actions'
  
-class AddBrigada extends Component {
+class AddBrigadaScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -90,17 +90,11 @@ class AddBrigada extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const AddBrigadaScreen = connect(mapStateToProps, mapDispatchToProps)(AddBrigada)
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AddBrigadaScreen);

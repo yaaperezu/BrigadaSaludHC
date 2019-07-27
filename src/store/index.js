@@ -1,16 +1,6 @@
-import {
-    createStore as _createStore,
-    applyMiddleware,
-    combineReducers
-} from 'redux'
-import thunk from 'redux-thunk'
-import { reducers, actions } from './modules'
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers'
 
-// Apply thunk middleware
-const middleware = applyMiddleware(thunk)
+export default createStore(rootReducer, compose(applyMiddleware(thunk)));
 
-const createStore = (data: Object = {}) => {
-    return _createStore(combineReducers(reducers), data, middleware)
-}
-
-export { createStore, actions }

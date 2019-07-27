@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { actions, States } from '../../store'
 import SincronizacionUI from '../../components/UI/sincronizacion/SincronizacionUI'
+import * as actions from '../../store/actions'
 
-class Sincronizacion extends Component {
+class SincronizacionScreen extends Component {
 
     constructor(props) {
         super(props)
@@ -51,17 +51,11 @@ class Sincronizacion extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        app: state.app
-    }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-        doLogout: () => {
-            dispatch(actions.user.logout())
-        }
-    }
-}
-
-export const SincronizacionScreen = connect(mapStateToProps, mapDispatchToProps)(Sincronizacion)
+const mapStateToProps = state => ({
+    app: state.app,
+    user: state.user
+  });
+const mapDispatchToProps = dispatch => ({
+    doLogout: () => dispatch(actions.user.logout())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SincronizacionScreen);

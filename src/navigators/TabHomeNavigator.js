@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { PacienteScreen } from '../screens/paciente/PacienteScreen'
-import { AddPacienteScreen } from '../screens/paciente/AddPacienteScreen'
-import { AtencionScreen } from '../screens/atencion/AtencionScreen'
-import { ConsultaHCScreen } from '../screens/consultahc/ConsultaHCScreen'
+import PacienteScreen from '../screens/paciente/PacienteScreen'
+import AddPacienteScreen from '../screens/paciente/AddPacienteScreen'
+import AtencionScreen from '../screens/atencion/AtencionScreen'
+import ConsultaHCScreen from '../screens/consultahc/ConsultaHCScreen'
 import { View } from 'react-native' 
 import Icon from 'react-native-vector-icons/Ionicons';
 
