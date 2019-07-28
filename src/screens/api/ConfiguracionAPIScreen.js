@@ -54,8 +54,11 @@ class ConfiguracionAPIScreen extends Component {
     }
 
     deleteConfAPI = (confApi) => {
-        console.log('ConfiguracionAPIScreen  :::: deleteConfAPI')
         this.props.deleteConfAPI(confApi)
+    }
+
+    updateBusqConfApi = (server) => {
+        this.props.updateBusqConfApi(server)
     }
 
     render() {
@@ -65,7 +68,8 @@ class ConfiguracionAPIScreen extends Component {
                 goAddConfApi={this.goAddConfApi}
                 dataListConfAPI={this.props.confApi.listAllConfAPI}
                 goUpdateConfAPI={this.goUpdateConfAPI} 
-                deleteConfAPI={this.deleteConfAPI}/>
+                deleteConfAPI={this.deleteConfAPI}
+                updateBusqConfApi={this.updateBusqConfApi}/>
         );
     }
 }
@@ -77,6 +81,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     doLogout: () => dispatch(actions.user.logout()),
     listarAllConfAPI: () => dispatch(actions.confApi.listarAllConfAPI()),
-    deleteConfAPI: conf => dispatch(actions.confApi.deleteConfAPI(conf))
+    deleteConfAPI: conf => dispatch(actions.confApi.deleteConfAPI(conf)),
+    updateBusqConfApi: server => dispatch(actions.confApi.busqServerConfApi(server))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ConfiguracionAPIScreen);

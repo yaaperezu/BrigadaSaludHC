@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Title, Paragraph, Button, withTheme,Colors  } from 'react-native-paper';
+import { Card, Title, Button, withTheme,Colors  } from 'react-native-paper';
 import styleBase from '../../../stylesheets/base.stylesheets'
 
 let ConfApiCardUI = (props) => {
@@ -9,9 +9,6 @@ let ConfApiCardUI = (props) => {
                 <Title>
                     {props.confApi.protocolo}://{props.confApi.server}:{props.confApi.port}
                 </Title>
-                <Paragraph>
-                    {props.confApi.server}
-                </Paragraph>
             </Card.Content>
             <Card.Actions>
                 <Button icon="delete" uppercase={false}

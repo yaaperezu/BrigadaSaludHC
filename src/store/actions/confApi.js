@@ -72,7 +72,23 @@ export const deleteConfAPI = (confApi) => {
 export const listarAllConfAPI = () => {
     return dispatch => {
 
-        let listAllConfAPI = ConexionRealm.objects('ServidorAPI')
+        let listAllConfAPI = ConexionRealm.objects('ServidorAPI').sorted('id', true)
+        dispatch({
+            type: 'LIST_ALL_CONFIG',
+            payload: {
+                listAllConfAPI: listAllConfAPI
+            }
+        })
+
+    }
+}
+
+export const busqServerConfApi = (server) => {
+    
+    return dispatch => {
+        
+        let listAllConfAPI = ConexionRealm.objects('ServidorAPI').sorted('id', true).filtered("server BEGINSWITH '" + server + "'")
+                
         dispatch({
             type: 'LIST_ALL_CONFIG',
             payload: {
