@@ -33,9 +33,9 @@ class ConfiguracionAPIScreen extends Component {
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({ 
-            logout: this.logoutUser, 
-            goPerfilUser: this.goPerfilUser 
+        this.props.navigation.setParams({
+            logout: this.logoutUser,
+            goPerfilUser: this.goPerfilUser
         });
     }
 
@@ -47,12 +47,25 @@ class ConfiguracionAPIScreen extends Component {
         this.props.navigation.navigate('AddConfiguracionAPI')
     }
 
+    goUpdateConfAPI = (confApi) => {
+        this.props.navigation.navigate('AddConfiguracionAPI', {
+            confApi: confApi
+        })
+    }
+
+    deleteConfAPI = (confApi) => {
+        console.log('ConfiguracionAPIScreen  :::: deleteConfAPI')
+        this.props.deleteConfAPI(confApi)
+    }
+
     render() {
         return (
-            <ConfiguracionAPIUI 
-                setNavigationColor={this.setNavigationColor} 
+            <ConfiguracionAPIUI
+                setNavigationColor={this.setNavigationColor}
                 goAddConfApi={this.goAddConfApi}
-                dataListConfAPI={this.props.confApi.listAllConfAPI}/>
+                dataListConfAPI={this.props.confApi.listAllConfAPI}
+                goUpdateConfAPI={this.goUpdateConfAPI} 
+                deleteConfAPI={this.deleteConfAPI}/>
         );
     }
 }
@@ -60,9 +73,10 @@ class ConfiguracionAPIScreen extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     confApi: state.confApi
-  });
+});
 const mapDispatchToProps = dispatch => ({
     doLogout: () => dispatch(actions.user.logout()),
-    listarAllConfAPI: () => dispatch(actions.confApi.listarAllConfAPI())
+    listarAllConfAPI: () => dispatch(actions.confApi.listarAllConfAPI()),
+    deleteConfAPI: conf => dispatch(actions.confApi.deleteConfAPI(conf))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ConfiguracionAPIScreen);

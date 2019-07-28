@@ -24,7 +24,10 @@ class ConfiguracionAPIUI extends Component {
                     data={this.props.dataListConfAPI} 
                     ListEmptyComponent={Empty} 
                     style={{width: '100%'}}
-                    renderItem={({ item }) => <ConfApiCardUI key={item.id} confApi={item} />} 
+                    renderItem={({ item }) => <ConfApiCardUI 
+                        deleteConfAPI={this.props.deleteConfAPI}
+                        goUpdateConfAPI={this.props.goUpdateConfAPI} 
+                        key={item.id} confApi={item} />} 
                     keyExtractor={(item, index) => index.toString()}/>
                     
 

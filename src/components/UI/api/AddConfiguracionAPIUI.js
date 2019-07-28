@@ -11,19 +11,42 @@ class AddConfiguracionUI extends Component {
         super(props)
 
         this.state = {
-            protocolo: '',
+            idConfApi: 0,
+            protocolo: { protocolo: 'http' },
+            protocoloDefault: 'http',
             server: '',
             port: '',
-            estado: '',
+            estado: { estado: 'Activo' },
+            estadoDefault: 'Activo',
             validateProtocolo: false,
             validateServer: false,
             validatePort: false,
             validateEstado: false
         }
+
+        this.preCargarValoresForm()
     }
 
     componentDidMount() {
         this.props.setNavigationColor(this.props.theme.colors.primary)
+    }
+
+    preCargarValoresForm = () => {
+        if (this.props.confApiParam !== null) {
+            this.state = {
+                idConfApi: this.props.confApiParam.id,
+                protocolo: { protocolo: this.props.confApiParam.protocolo },
+                protocoloDefault: this.props.confApiParam.protocolo,
+                server: this.props.confApiParam.server,
+                port: this.props.confApiParam.port,
+                estado: { estado: this.props.confApiParam.estado },
+                estadoDefault: this.props.confApiParam.estado,
+                validateProtocolo: true,
+                validateServer: true,
+                validatePort: true,
+                validateEstado: true
+            }
+        }
     }
 
     setProtocolo = (protocolo) => {
@@ -57,7 +80,7 @@ class AddConfiguracionUI extends Component {
     esInvalidoProtocolo = () => {
         let invalido = false
         if (this.state.validateProtocolo) {
-            if (this.state.protocolo === '') {
+            if (this.state.protocolo === null) {
                 invalido = true
             }
         }
@@ -84,15 +107,25 @@ class AddConfiguracionUI extends Component {
         return valid
     }
 
+    esInvalidoEstado = () => {
+        let invalido = false
+        if (this.state.validateEstado) {
+            if (this.state.estado === null) {
+                invalido = true
+            }
+        }
+        return invalido
+    }
+
     esFormValido = () => {
         let valid = true
-        if (this.state.protocolo === '') {
+        if (this.state.protocolo === null) {
             return false
         } else if (this.state.server === '' || this.state.server.length <= 3) {
             return false
         } else if (this.state.port === '') {
             return false
-        } else if (this.state.estado === '') {
+        } else if (this.state.estado === null) {
             return false
         }
         return valid
@@ -102,7 +135,8 @@ class AddConfiguracionUI extends Component {
         this.setState({
             validateProtocolo: true,
             validateServer: true,
-            validatePort: true
+            validatePort: true,
+            validateEstado: true
         })
         if (this.esFormValido()) {
             this.props.registrarConfAPI(this.state)
@@ -123,6 +157,7 @@ class AddConfiguracionUI extends Component {
                     containerStyle={styleBrigada.formControlDropdown}
                     label='Protocolo'
                     data={properties.protocoloProperties()}
+                    value={this.state.protocoloDefault}
                     onChangeText={(protocolo) => this.setProtocolo({ protocolo })}
                 />
                 <HelperText
@@ -161,11 +196,12 @@ class AddConfiguracionUI extends Component {
                     containerStyle={styleBrigada.formControlDropdown}
                     label='Estado'
                     data={properties.estadoRegistroProperties()}
+                    value={this.state.estadoDefault}
                     onChangeText={(estado) => this.setEstado({ estado })}
                 />
                 <HelperText
                     type="error"
-                    visible={this.esInvalidoProtocolo()}>
+                    visible={this.esInvalidoEstado()}>
                     El estado es requerido
                 </HelperText>
 

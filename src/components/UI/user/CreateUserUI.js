@@ -16,12 +16,15 @@ class CreateUserUI extends Component {
         super(props)
 
         this.state = {
-            tipoDoc: '',
+            tipoDoc: {tipoDoc: 'Cédula de Ciudadanía'},
+            tipoDocDefault: 'Cédula de Ciudadanía',
             documento: '',
             nombres: '',
             apellidos: '',
-            genero: '',
-            especialidad: '',
+            genero: {genero: 'Masculino'},
+            generoDefault: 'Masculino',
+            especialidad: {especialidad: 'Medicina General'},
+            especialidadDefault: 'Medicina General',
             username: '',
             password: '',
             validateUsername: false,
@@ -235,6 +238,7 @@ class CreateUserUI extends Component {
                     containerStyle={stylesUser.formControlDropdown}
                     label='Tipo de Documento'
                     data={properties.tipoDocProperties()}
+                    value={this.state.tipoDocDefault}
                     onChangeText={(tipoDoc) => this.setTipoDoc({ tipoDoc })}
                 />
                 <HelperText
@@ -286,6 +290,7 @@ class CreateUserUI extends Component {
                     containerStyle={stylesUser.formControlDropdown}
                     label='Genero'
                     data={properties.generoProperties()}
+                    value={this.state.generoDefault}
                     onChangeText={(genero) => this.setGenero({ genero })}
                 />
                 <HelperText
@@ -298,6 +303,7 @@ class CreateUserUI extends Component {
                     containerStyle={stylesUser.formControlDropdown}
                     label='Especialidad'
                     data={properties.especialidadProperties()}
+                    value={this.state.especialidadDefault}
                     onChangeText={(especialidad) => this.setEspecialidad({ especialidad })}
                 />
                 <HelperText

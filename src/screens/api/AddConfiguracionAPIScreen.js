@@ -8,6 +8,17 @@ class AddConfiguracionAPIScreen extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            confApiParam: null
+        }
+
+        if( this.props.navigation.getParam('confApi') !== undefined ) {
+            this.state = {
+                confApiParam: this.props.navigation.getParam('confApi')
+            }
+        }
+      
     }
 
     setNavigationColor = (color) => {
@@ -37,7 +48,8 @@ class AddConfiguracionAPIScreen extends Component {
             <AddConfiguracionAPIUI
                 setNavigationColor={this.setNavigationColor}
                 goConfAPINavigator={this.goConfAPINavigator}
-                registrarConfAPI={this.registrarConfAPI} />
+                registrarConfAPI={this.registrarConfAPI} 
+                confApiParam={this.state.confApiParam}/>
         );
     }
 
