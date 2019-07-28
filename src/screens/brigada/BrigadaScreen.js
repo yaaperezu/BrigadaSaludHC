@@ -7,6 +7,8 @@ class BrigadaScreen extends Component {
 
     constructor(props) {
         super(props)
+
+        this.listarAllBrigada()
     }
 
     setNavigationColor = (color) => {
@@ -28,39 +30,55 @@ class BrigadaScreen extends Component {
     }
 
     componentDidMount() {
-        this.props.navigation.setParams({ 
-            logout: this.logoutUser, 
-            goPerfilUser: this.goPerfilUser 
+        this.props.navigation.setParams({
+            logout: this.logoutUser,
+            goPerfilUser: this.goPerfilUser
         });
     }
 
-    logoutUser = () => {
-        this.props.doLogout()
-        this.props.navigation.navigate('AuthLoading');
-    }
-
-    goPerfilUser = () => {
-        this.props.navigation.navigate('HomeDrawer');
+    listarAllBrigada = () => {
+        this.props.listarAllBrigada()
     }
 
     goAddBrigada = () => {
         this.props.navigation.navigate('AddBrigada')
     }
 
+    goUpdateBrigada = (brigada) => {
+        this.props.navigation.navigate('AddBrigada', {
+            brigada: brigada
+        })
+    }
+
+    deleteBrigada = (brigada) => {
+        this.props.deleteBrigada(brigada)
+    }
+
+    updateBusqBrigada = (descBrigada) => {
+        this.props.busqBrigada(descBrigada)
+    }
+
     render() {
         return (
-            <BrigadaUI 
-                setNavigationColor={this.setNavigationColor} 
-                goAddBrigada={this.goAddBrigada}/>
+            <BrigadaUI
+                setNavigationColor={this.setNavigationColor}
+                goAddBrigada={this.goAddBrigada} 
+                goUpdateBrigada={this.goUpdateBrigada}
+                dataListBrigada={this.props.brigada.listAllBrigada}
+                deleteBrigada={this.deleteBrigada}
+                updateBusqBrigada={this.updateBusqBrigada}/>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    app: state.app,
-    user: state.user
-  });
+    user: state.user,
+    brigada: state.brigada
+});
 const mapDispatchToProps = dispatch => ({
-    doLogout: () => dispatch(actions.user.logout())
+    doLogout: () => dispatch(actions.user.logout()),
+    listarAllBrigada: () => dispatch(actions.brigada.listarAllBrigada()),
+    deleteBrigada: brigada => dispatch(actions.brigada.deleteBrigada(brigada)),
+    busqBrigada: descBrigada => dispatch(actions.brigada.busqBrigada(descBrigada))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(BrigadaScreen);

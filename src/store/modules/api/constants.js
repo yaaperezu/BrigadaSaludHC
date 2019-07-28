@@ -1,5 +1,0 @@
-export const LISTAR_CONF = 'LISTAR_CONF'
-export const CREATE_CONF = 'CREATE_CONF'
-export const UPDATE_CONF = 'UPDATE_CONF'
-export const REMOVE_CONF = 'REMOVE_CONF'
-export const REMOVE_ALL_CONF = 'REMOVE_ALL_CONF'

@@ -1,23 +1,13 @@
 import React, { Component } from 'react'
 import AddBrigadaUI from '../../components/UI/brigada/AddBrigadaUI'
 import { connect } from 'react-redux'
-import ConexionRealm from '../../data'
-import * as SchemaBD from '../../data/schemas'
 import { Alert } from 'react-native'
 import * as actions from '../../store/actions'
- 
+
 class AddBrigadaScreen extends Component {
 
     constructor(props) {
         super(props)
-
-        this.listarBrigadaApp()
-    }
-
-    listarBrigadaApp = () => {
-        let brigada = ConexionRealm.objects('Brigada')
-        listBrigada = Object.values(brigada)
-        return listBrigada
     }
 
     setNavigationColor = (color) => {
@@ -44,36 +34,22 @@ class AddBrigadaScreen extends Component {
 
     render() {
         return (
-            <AddBrigadaUI 
+            <AddBrigadaUI
                 setNavigationColor={this.setNavigationColor}
                 goBrigadaNavigator={this.goBrigadaNavigator}
-                registrarBrigada={this.registrarBrigada}/>
+                registrarBrigada={this.registrarBrigada} />
         );
     }
 
     registrarBrigada = (brigada) => {
-        let brigadaNew = new SchemaBD.BrigadaModel();
-        brigadaNew.descripcion = brigada.descripcion
-        brigadaNew.lugar = brigada.lugar
-        brigadaNew.ciudad = brigada.ciudad
-        brigadaNew.fechai = new Date(brigada.fechaI)
-        brigadaNew.fechaf = new Date(brigada.fechaF)
-     
+        console.log(':::::::::::  REG BRIGADA  :::::::::')
+        console.log(brigada)
+        this.props.registrarBrigada(brigada)
 
-        ConexionRealm.write(() => {
-            let registrosBrigada = ConexionRealm.objects('Brigada').sorted('id', true)
-            var ID = registrosBrigada.length > 0
-                ? registrosBrigada[0].id + 1
-                : 1;
-            
-            brigadaNew.id = ID;
-            brigadaNew.createdAt = new Date();
-            brigadaNew.updatedAt = new Date();
-
-            ConexionRealm.create('Brigada', brigadaNew);
+        if (this.props.brigada.listAllBrigada.length > 0) {
             Alert.alert(
                 'Éxito',
-                'Brigada registrada correctamente',
+                'Configuración registrada correctamente',
                 [
                     {
                         text: 'Ok',
@@ -81,16 +57,18 @@ class AddBrigadaScreen extends Component {
                     },
                 ],
                 { cancelable: false }
-            );
-        });
+            )
+        }
     }
+
 }
 
 const mapStateToProps = state => ({
-    app: state.app,
-    user: state.user
-  });
+    user: state.user,
+    brigada: state.brigada
+});
 const mapDispatchToProps = dispatch => ({
-    doLogout: () => dispatch(actions.user.logout())
+    doLogout: () => dispatch(actions.user.logout()),
+    registrarBrigada: brigada => dispatch(actions.brigada.registrarBrigada(brigada))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AddBrigadaScreen);

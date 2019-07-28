@@ -10,6 +10,7 @@ class AddBrigadaUI extends Component {
         super(props)
 
         this.state = {
+            idBrigada: 0,
             descripcion: '',
             lugar: '',
             ciudad: '',
@@ -92,7 +93,7 @@ class AddBrigadaUI extends Component {
         return valid
     }
 
-    registraBrigada = () => {
+    registrarBrigada = () => {
         this.setState({
             validateDescripcion: true,
             validateLugar: true,
@@ -221,7 +222,7 @@ class AddBrigadaUI extends Component {
                 <Button mode="contained"
                     style={styleBrigada.formControlButton}
                     color={this.props.theme.colors.accent}
-                    onPress={() => this.registraBrigada(this.state)}>
+                    onPress={() => this.registrarBrigada(this.state)}>
                     Guardar
                 </Button>
                 <Button mode="text"

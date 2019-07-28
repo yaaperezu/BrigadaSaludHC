@@ -7,10 +7,7 @@ class ConfiguracionAPIScreen extends Component {
 
     constructor(props) {
         super(props)
-
-        this.state = {
-            listConfAPI: {}
-        }
+        
         this.listarConfAPI()
     }
 

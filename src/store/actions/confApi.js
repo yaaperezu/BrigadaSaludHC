@@ -19,11 +19,10 @@ export const registrarConfAPI = (confApi) => {
                     let regConfAPI = ConexionRealm.objects('ServidorAPI').sorted('id', true)
                     let ID = regConfAPI.length > 0 ? (regConfAPI[0].id + 1) : 1;
                     servAPINew.id = ID
-                    console.log(servAPINew)
                     ConexionRealm.create('ServidorAPI', servAPINew);
                 } else {
                     servAPINew.id = confApi.idConfApi
-                    console.log(servAPINew)
+                    servAPINew.updatedAt = new Date();
                     ConexionRealm.create('ServidorAPI', servAPINew, true);
                 }
 
@@ -54,7 +53,7 @@ export const deleteConfAPI = (confApi) => {
                 ConexionRealm.delete(confApi);
             });
 
-            let listAllConfAPI = ConexionRealm.objects('ServidorAPI')
+            let listAllConfAPI = ConexionRealm.objects('ServidorAPI').sorted('id', true)
             dispatch({
                 type: 'CREATE_CONF',
                 payload: {

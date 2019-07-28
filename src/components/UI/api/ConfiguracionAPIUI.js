@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import { withTheme, FAB, Searchbar } from 'react-native-paper'
 import styleBase from '../../../stylesheets/base.stylesheets'
 import { FlatList } from 'react-native-gesture-handler'
-import Empty from '../utilities/Empty';
+import Empty from '../utilities/Empty'
 import ConfApiCardUI from './ConfApiCardUI'
 
 class ConfiguracionAPIUI extends Component {
@@ -22,7 +22,6 @@ class ConfiguracionAPIUI extends Component {
 
     updateBusqConfApi = (text) => {
         this.setState({ serverBusq: text })
-        console.log(text)
         this.props.updateBusqConfApi(text)
     }
 
