@@ -91,6 +91,28 @@ export const UsuarioSchema = {
 	}
 };
 
+export class PacienteModel {
+    constructor() {
+        this.id = 0;
+		this.tipoDoc = '';
+		this.numeroDocumento = '';
+		this.nombre = '';
+		this.apellido = '';
+		this.genero = '';
+		this.fechaNaciemiento = null;
+		this.ocupacion = ''
+		this.nacionalidad = ''
+		this.seguridadSocial = ''
+		this.cualSS = ''
+		this.barrioVive = ''
+		this.numeroTelefono = ''
+		this.acudiente = ''
+		this.cargadoSistema = false;
+		this.createdAt = new Date();
+	    this.updatedAt = new Date();
+    }
+}
+
 export const PacienteSchema = {
 	name: 'Paciente',
 	primaryKey: 'id',
@@ -101,14 +123,14 @@ export const PacienteSchema = {
 		nombre: 'string',
 		apellido: 'string',
 		genero: 'string',
-		fechaNaciemiento: 'string',
-		acudiente: { type: 'string', optional: true },
+		fechaNaciemiento: 'date',
 		ocupacion: { type: 'string', optional: true },
-		afiliadoSSS: 'string',
-		cualSSS: 'string',
-		nacionalidad: 'string',
+		nacionalidad: { type: 'string', optional: true },
+		seguridadSocial: 'string',
+		cualSS: 'string',
 		barrioVive: { type: 'string', optional: true },
 		numeroTelefono: { type: 'string', optional: true },
+		acudiente: { type: 'string', optional: true },		
 		cargadoSistema: 'bool',
 		createdAt: 'date',
 		updatedAt: 'date'

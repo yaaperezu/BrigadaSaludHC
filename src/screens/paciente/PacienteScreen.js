@@ -8,6 +8,8 @@ class PacienteScreen extends Component {
 
     constructor(props) {
         super(props)
+
+        this.listarAllPaciente()
     }
 
     setNavigationColor = (color) => {
@@ -49,6 +51,10 @@ class PacienteScreen extends Component {
         });
     }
 
+    listarAllPaciente = () => {
+        this.props.listarAllPaciente()
+    }
+
     logoutUser = () => {
         this.props.doLogout()
         this.props.navigation.navigate('AuthLoading');
@@ -62,20 +68,41 @@ class PacienteScreen extends Component {
         this.props.navigation.navigate('AddPaciente')
     }
 
+    goUpdatePaciente = (paciente) => {
+        this.props.navigation.navigate('AddPaciente', {
+            paciente: paciente
+        })
+    }
+
+    deletePaciente = (paciente) => {
+        this.props.deletePaciente(paciente)
+    }
+
+    updateBusqPaciente = (nombrePaciente) => {
+        this.props.busqPaciente(nombrePaciente)
+    }
+
     render() {
         return (
             <PacienteUI
                 setNavigationColor={this.setNavigationColor}
-                goAddPaciente={this.goAddPaciente} />
+                goAddPaciente={this.goAddPaciente} 
+                goUpdatePaciente={this.goUpdatePaciente}
+                dataListPaciente={this.props.paciente.listAllPaciente}
+                deletePaciente={this.deletePaciente}
+                updateBusqPaciente={this.updateBusqPaciente}/>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    app: state.app,
-    user: state.user
+    user: state.user,
+    paciente: state.paciente
   });
 const mapDispatchToProps = dispatch => ({
-    doLogout: () => dispatch(actions.user.logout())
+    doLogout: () => dispatch(actions.user.logout()),
+    listarAllPaciente: () => dispatch(actions.paciente.listarAllPaciente()),
+    deletePaciente: paciente => dispatch(actions.paciente.deletePaciente(paciente)),
+    busqPaciente: nombrePaciente => dispatch(actions.paciente.busqPaciente(nombrePaciente))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(PacienteScreen);

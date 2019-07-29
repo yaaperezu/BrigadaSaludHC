@@ -8,6 +8,16 @@ class AddPacienteScreen extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            pacienteParam: null
+        }
+
+        if (this.props.navigation.getParam('paciente') !== undefined) {
+            this.state = {
+                pacienteParam: this.props.navigation.getParam('paciente')
+            }
+        }
     }
 
     setNavigationColor = (color) => {
@@ -58,19 +68,50 @@ class AddPacienteScreen extends Component {
         this.props.navigation.navigate('HomeDrawer');
     }
 
+    goPacienteNavigator = () => {
+        this.props.navigation.navigate('Paciente')
+    }
+
     render() {
         return (
             <AddPacienteUI 
-                setNavigationColor={this.setNavigationColor}/>
+                setNavigationColor={this.setNavigationColor}
+                goPacienteNavigator={this.goPacienteNavigator}
+                registrarPaciente={this.registrarPaciente}
+                cancelAddPaciente={this.cancelAddPaciente}
+                pacienteParam={this.state.pacienteParam}/>
         );
     }
+
+    registrarPaciente = (paciente) => {
+        this.props.registrarPaciente(paciente)
+
+        if (this.props.paciente.listAllPaciente.length > 0) {
+            Alert.alert(
+                'Éxito',
+                'Paciente registrado correctamente',
+                [
+                    {
+                        text: 'Ok',
+                        onPress: () => this.props.navigation.navigate('Paciente'),
+                    },
+                ],
+                { cancelable: false }
+            )
+        }
+    }
+
+    cancelAddPaciente = () => {
+        this.props.navigation.navigate('Paciente')
+    };
 }
 
 const mapStateToProps = state => ({
     app: state.app,
-    user: state.user
+    paciente: state.paciente
   });
 const mapDispatchToProps = dispatch => ({
-    doLogout: () => dispatch(actions.user.logout())
+    doLogout: () => dispatch(actions.user.logout()),
+    registrarPaciente: paciente => dispatch(actions.paciente.registrarPaciente(paciente))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AddPacienteScreen);
