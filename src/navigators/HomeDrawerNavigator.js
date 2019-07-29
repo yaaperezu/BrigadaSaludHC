@@ -2,16 +2,18 @@ import React from 'react'
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import Icon from 'react-native-vector-icons/Ionicons'
-import GetUserScreen from '../screens/user/GetUserScreen'
+import UserScreen from '../screens/user/UserScreen'
+import AddUserScreen from '../screens/user/AddUserScreen'
 import BrigadaScreen from '../screens/brigada/BrigadaScreen'
 import AddBrigadaScreen from '../screens/brigada/AddBrigadaScreen'
 import ConfiguracionAPIScreen from '../screens/api/ConfiguracionAPIScreen'
 import AddConfiguracionAPIScreen from '../screens/api/AddConfiguracionAPIScreen'
 import SincronizacionScreen from '../screens/sincronizacion/SincronizacionScreen'
 
-const HomeStackNavigator = createStackNavigator(
+const UserStackNavigator = createStackNavigator(
     {
-        GetUserNavigator: GetUserScreen
+        UserNavigator: UserScreen,
+        AddUser: AddUserScreen
     },
     {
         defaultNavigationOptions: ({ navigation }) => {
@@ -138,7 +140,7 @@ const SincronizacioStacknNavigator = createStackNavigator(
 
 export default createDrawerNavigator({
     Usuarios: {
-        screen: HomeStackNavigator
+        screen: UserStackNavigator
     },
     Brigada: {
         screen: BriadaStackNavigator
