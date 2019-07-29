@@ -6,24 +6,24 @@ import HomeDrawerNavigator from './HomeDrawerNavigator'
 
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
-export const LoginStack = createStackNavigator({ 
+export const LoginStack = createStackNavigator({
     LoginIn: LoginScreen,
     CreateUser: CreateUserScreen
-},{
-    defaultNavigationOptions: ({navigation}) => {
-        return {
-            title: 'Brigada de Salud',
-            headerStyle: {
-                backgroundColor: 'red'
-            }, 
-            headerTitleStyle: {
-                color: 'white'
+}, {
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                title: 'Brigada de Salud',
+                headerStyle: {
+                    backgroundColor: 'red'
+                },
+                headerTitleStyle: {
+                    color: 'white'
+                }
             }
         }
-    }
-}, {
-    initialRouteName: 'LoginIn'
-});
+    }, {
+        initialRouteName: 'LoginIn'
+    });
 
 export const NavigatorMain = createSwitchNavigator(
     {
