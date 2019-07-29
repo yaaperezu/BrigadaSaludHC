@@ -47,7 +47,6 @@ export const registrarBrigada = (brigada) => {
 }
 
 export const deleteBrigada = (brigada) => {
-    console.log('ACTION deleteBrigada')
     return dispatch => {
 
         try {
@@ -71,11 +70,9 @@ export const deleteBrigada = (brigada) => {
 }
 
 export const listarAllBrigada = () => {
-    console.log(':::::::::::::::listarAllBrigada::::::::::::::')
     return dispatch => {
 
         let listAllBrigada = ConexionRealm.objects('Brigada').sorted('id', true)
-        console.log(listAllBrigada)
         dispatch({
             type: 'LIST_ALL_BRIGADA',
             payload: {
@@ -87,11 +84,9 @@ export const listarAllBrigada = () => {
 }
 
 export const busqBrigada = (descBrigada) => {
-
     return dispatch => {
 
         let listAllBrigada = ConexionRealm.objects('Brigada').sorted('id', true).filtered("descripcion BEGINSWITH '" + descBrigada + "'")
-
         dispatch({
             type: 'LIST_ALL_BRIGADA',
             payload: {

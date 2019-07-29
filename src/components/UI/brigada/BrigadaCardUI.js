@@ -10,7 +10,7 @@ let BrigadaCardUI = (props) => {
                     {props.brigada.lugar} - {props.brigada.ciudad}
                 </Title>
                 <Paragraph>{props.brigada.descripcion}</Paragraph>
-                <Paragraph>{new Date(props.brigada.fechai).toLocaleDateString()}</Paragraph>
+                <Paragraph>{(props.brigada.fechai).toLocaleDateString()}</Paragraph>
             </Card.Content>
             <Card.Actions>
                 <Button icon="delete" uppercase={false}

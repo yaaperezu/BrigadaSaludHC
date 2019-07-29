@@ -8,6 +8,16 @@ class AddBrigadaScreen extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            brigadaParam: null
+        }
+        
+        if( this.props.navigation.getParam('brigada') !== undefined ) {
+            this.state = {
+                brigadaParam: this.props.navigation.getParam('brigada')
+            }
+        }
     }
 
     setNavigationColor = (color) => {
@@ -37,13 +47,12 @@ class AddBrigadaScreen extends Component {
             <AddBrigadaUI
                 setNavigationColor={this.setNavigationColor}
                 goBrigadaNavigator={this.goBrigadaNavigator}
-                registrarBrigada={this.registrarBrigada} />
+                registrarBrigada={this.registrarBrigada} 
+                brigadaParam={this.state.brigadaParam}/>
         );
     }
 
     registrarBrigada = (brigada) => {
-        console.log(':::::::::::  REG BRIGADA  :::::::::')
-        console.log(brigada)
         this.props.registrarBrigada(brigada)
 
         if (this.props.brigada.listAllBrigada.length > 0) {

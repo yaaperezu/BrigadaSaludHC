@@ -20,10 +20,28 @@ class AddBrigadaUI extends Component {
             validateLugar: false,
             validateCiudad: false
         }
+
+        this.preCargarValoresForm()
     }
 
     componentDidMount() {
         this.props.setNavigationColor(this.props.theme.colors.primary)
+    }
+
+    preCargarValoresForm = () => {
+        if (this.props.brigadaParam !== null) {
+            this.state = {
+                idBrigada: this.props.brigadaParam.id,
+                descripcion: this.props.brigadaParam.descripcion,
+                lugar: this.props.brigadaParam.lugar,
+                ciudad: this.props.brigadaParam.ciudad,
+                fechaI: (this.props.brigadaParam.fechai).toJSON(),
+                fechaF: (this.props.brigadaParam.fechaf).toJSON(),
+                validateDescripcion: true,
+                validateLugar: true,
+                validateCiudad: true
+            }
+        }
     }
 
     setDescripcion = (descripcion) => {
@@ -164,7 +182,7 @@ class AddBrigadaUI extends Component {
                         Fecha Inicio
                     </Paragraph>
                     <DatePicker
-                        style={{width: '95%'}}
+                        style={{ width: '95%' }}
                         date={this.state.fechaI}
                         mode="date"
                         placeholder="Selecciones la facha inicial"
@@ -174,17 +192,17 @@ class AddBrigadaUI extends Component {
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
-                          dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                          },
-                          dateInput: {
-                            marginLeft: 36
-                          }
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                            dateInput: {
+                                marginLeft: 36
+                            }
                         }}
-                        onDateChange={(date) => {this.setState({fechaI: date})}}
+                        onDateChange={(date) => { this.setState({ fechaI: date }) }}
                     />
                 </View>
 
@@ -193,7 +211,7 @@ class AddBrigadaUI extends Component {
                         Fecha Inicio
                     </Paragraph>
                     <DatePicker
-                        style={{width: '95%'}}
+                        style={{ width: '95%' }}
                         date={this.state.fechaF}
                         mode="date"
                         placeholder="Selecciones la facha final"
@@ -203,17 +221,17 @@ class AddBrigadaUI extends Component {
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
-                          dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                          },
-                          dateInput: {
-                            marginLeft: 36
-                          }
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                            dateInput: {
+                                marginLeft: 36
+                            }
                         }}
-                        onDateChange={(date) => {this.setState({fechaF: date})}}
+                        onDateChange={(date) => { this.setState({ fechaF: date }) }}
                     />
                 </View>
 

@@ -45,7 +45,6 @@ export const registrarConfAPI = (confApi) => {
 }
 
 export const deleteConfAPI = (confApi) => {
-    console.log('ACTION deleteConfAPI')
     return dispatch => {
 
         try {
