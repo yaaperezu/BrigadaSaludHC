@@ -1,19 +1,15 @@
 import React from 'react';
-import {
-    ActivityIndicator,
-    StatusBar,
-    StyleSheet,
-    View,
-} from 'react-native';
 import { connect } from 'react-redux'
-import * as actions from '../store/actions'
+import ActivityIndicatorUI from '../components/UI/utilities/ActivityIndicatorUI';
 
 class AuthLoadingScreen extends React.Component {
-    static navigationOptions = {
-        header: null,
-    };
+    
     constructor() {
         super();
+    }
+
+    static navigationOptions = {
+        header: null,
     }
 
     componentDidMount() {
@@ -21,39 +17,18 @@ class AuthLoadingScreen extends React.Component {
     }
 
     _bootstrapAsync = () => {
-        actions.user.getDataAsyncStorage('userToken').then((userToken) => {
-            this.props.navigation.navigate(userToken !== null ? 'Home' : 'Auth');
-        }).catch(error => {
-            this.setState({ error })
-        })
-
+        this.props.navigation.navigate((this.props.user.usuarioAut !== undefined && this.props.user.usuarioAut !== null) ? 'Home' : 'Auth');
     };
 
     render() {
         return (
-            <View style={styles.container}>
-                <ActivityIndicator />
-                <StatusBar barStyle="default" />
-            </View>
+            <ActivityIndicatorUI />
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
-
-
 const mapStateToProps = state => ({
     app: state.app,
     user: state.user
-  });
-const mapDispatchToProps = dispatch => ({
-    doLogin: (username, password) => dispatch(actions.user.login({ username, password })),
-    doLogout: () => dispatch(actions.user.logout())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(AuthLoadingScreen);
+export default connect(mapStateToProps, null)(AuthLoadingScreen);

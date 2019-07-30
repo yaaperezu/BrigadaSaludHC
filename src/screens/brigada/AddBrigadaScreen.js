@@ -52,8 +52,8 @@ class AddBrigadaScreen extends Component {
         );
     }
 
-    registrarBrigada = (brigada) => {
-        this.props.registrarBrigada(brigada)
+    registrarBrigada = async (brigada) => {
+        await this.props.registrarBrigada(brigada)
 
         if (this.props.brigada.listAllBrigada.length > 0) {
             Alert.alert(

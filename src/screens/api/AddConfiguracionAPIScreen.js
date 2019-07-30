@@ -53,8 +53,8 @@ class AddConfiguracionAPIScreen extends Component {
         );
     }
 
-    registrarConfAPI = (server) => {
-        this.props.registrarConfAPI(server)
+    registrarConfAPI = async (server) => {
+        await this.props.registrarConfAPI(server)
         
         if( this.props.confApi.listAllConfAPI.length > 0 ) {
             Alert.alert(

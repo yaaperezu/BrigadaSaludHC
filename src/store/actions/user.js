@@ -1,49 +1,38 @@
-import AsyncStorage from '@react-native-community/async-storage'
-import ConexionRealm from '../../data'
+import * as BdRealm from '../../data'
 import * as SchemaBD from '../../data/schemas'
 
+const Realm = require('realm')
+
 export const login = user => {
-    return dispatch => {
-
-        let usuarioAut = autheticateUserRealm(user.username, user.password)
-        if (usuarioAut !== null) {
-            saveDataAsyncStorage('userToken', user.username)
-            dispatch({
-                type: 'LOGIN',
-                usuarioAut: usuarioAut
-            })
-        }
-
-    }
-}
-
-export const autheticateUserRealm = (username, password) => {
     let filteredUser = ''
-    let usuario = null
-    try {
-        filteredUser = "nombreUsuario = '" + username + "'"
-        filteredUser += " AND contrasena = '" + password + "'"
-        let usuarios = ConexionRealm.objects('Usuario').filtered(filteredUser)
-        if (usuarios.length > 0) {
-            usuario = usuarios[0];
-        }
-    } catch (e) {
-        console.log(e)
-        return null
+    let usuarioAut = null
+    return dispatch => {
+        filteredUser = "nombreUsuario = '" + user.username + "'"
+        filteredUser += " AND contrasena = '" + user.password + "'"
+        console.log(filteredUser)
+        Realm.open(BdRealm.dataBaseOptions).then(realm => {
+            const usuarios = realm.objects('Usuario').filtered(filteredUser)
+
+            if (usuarios.length > 0) {
+                usuarioAut = usuarios[0];
+                dispatch({
+                    type: 'LOGIN',
+                    usuarioAut: usuarioAut
+                })
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
     }
-    return usuario
 }
 
 export const logout = () => {
-    removeDataAsyncStorage('userToken')
-    clearAllDataAsyncStorage()
     return {
         type: 'LOGOUT'
     }
 }
 
 export const registrarUser = (user) => {
-    console.log('::::::::: ACTIONS registrarUser  ::::::::')
     return dispatch => {
 
         try {
@@ -59,37 +48,36 @@ export const registrarUser = (user) => {
             userModelNew.createdAt = new Date();
             userModelNew.updatedAt = new Date();
 
-            ConexionRealm.write(() => {
-                if (user.idUser === 0) {
-                    let usuariosApp = ConexionRealm.objects('Usuario').sorted('id', true)
-                    var ID = usuariosApp.length > 0 ? usuariosApp[0].id + 1 : 1;
+            Realm.open(BdRealm.dataBaseOptions).then(realm => {
+                realm.write(() => {
+                    if (user.idUser === 0) {
+                        let usuariosApp = realm.objects('Usuario').sorted('id', true)
+                        var ID = usuariosApp.length > 0 ? usuariosApp[0].id + 1 : 1;
 
-                    userModelNew.id = ID;
-                    console.log('CREATE')
-                    console.log(userModelNew)
-                    ConexionRealm.create('Usuario', userModelNew);
-                } else {
-                    console.log('UPDATE')
-                    console.log(userModelNew)
-                    userModelNew.id = user.idUser
-                    userModelNew.updatedAt = new Date();
-                    userModelNew.create('Usuario', userModelNew, true);
-                }
+                        userModelNew.id = ID;
+                        realm.create('Usuario', userModelNew);
+                    } else {
+                        userModelNew.id = user.idUser
+                        userModelNew.updatedAt = new Date();
+                        realm.create('Usuario', userModelNew, true);
+                    }
 
+                });
+
+                let listAllUser = realm.objects('Usuario')
+                dispatch({
+                    type: 'CREATE_USER',
+                    payload: {
+                        listAllUser: listAllUser
+                    }
+                })
+            }).catch((error) => {
+                console.log(error);
             });
-
-            let listAllUser = ConexionRealm.objects('Usuario')
-            dispatch({
-                type: 'CREATE_USER',
-                payload: {
-                    listAllUser: listAllUser
-                }
-            })
         } catch (e) {
             console.log(e)
             return false
         }
-
     }
 }
 
@@ -97,16 +85,20 @@ export const deleteUser = (user) => {
     return dispatch => {
 
         try {
-            ConexionRealm.write(() => {
-                ConexionRealm.delete(user);
-            });
+            Realm.open(BdRealm.dataBaseOptions).then(realm => {
+                realm.write(() => {
+                    realm.delete(user);
+                });
 
-            let listAllUser = ConexionRealm.objects('Usuario').sorted('id', true)
-            dispatch({
-                type: 'DELETE_USER',
-                payload: {
-                    listAllUser: listAllUser
-                }
+                let listAllUser = realm.objects('Usuario').sorted('id', true)
+                dispatch({
+                    type: 'DELETE_USER',
+                    payload: {
+                        listAllUser: listAllUser
+                    }
+                })
+            }).catch((error) => {
+                console.log(error);
             })
         } catch (e) {
             console.log(e)
@@ -118,61 +110,36 @@ export const deleteUser = (user) => {
 
 export const listarAllUser = () => {
     return dispatch => {
+        Realm.open(BdRealm.dataBaseOptions).then(realm => {
+            const listAllUser = realm.objects('Usuario').sorted('id', true)
+            dispatch({
+                type: 'LIST_ALL_USER',
+                payload: {
+                    listAllUser: listAllUser
+                }
+            })
+        }).catch((error) => {
+            console.log(error);
+        });
 
-        let listAllUser = ConexionRealm.objects('Usuario').sorted('id', true)
-        dispatch({
-            type: 'LIST_ALL_USER',
-            payload: {
-                listAllUser: listAllUser
-            }
-        })
 
     }
 }
 
 export const busqUser = (userName) => {
     return dispatch => {
+        Realm.open(BdRealm.dataBaseOptions).then(realm => {
+            const listAllUser = realm.objects('Usuario').sorted('id', true).filtered("nombreUsuario BEGINSWITH '" + userName + "'")
+            dispatch({
+                type: 'LIST_ALL_USER',
+                payload: {
+                    listAllUser: listAllUser
+                }
+            })
+        }).catch((error) => {
+            console.log(error);
+        });
 
-        let listAllUser = ConexionRealm.objects('Usuario').sorted('id', true).filtered("nombreUsuario BEGINSWITH '" + userName + "'")
-        dispatch({
-            type: 'LIST_ALL_USER',
-            payload: {
-                listAllUser: listAllUser
-            }
-        })
 
-    }
-}
-
-export const saveDataAsyncStorage = async (keyData, valueData) => {
-    try {
-        await AsyncStorage.setItem(keyData, valueData)
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const getDataAsyncStorage = async (keyData) => {
-    try {
-        const value = await AsyncStorage.getItem(keyData)
-        return value;
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const removeDataAsyncStorage = async (keyData) => {
-    try {
-        await AsyncStorage.removeItem(keyData)
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const clearAllDataAsyncStorage = async () => {
-    try {
-        await AsyncStorage.clear()
-    } catch (e) {
-        console.log(e)
     }
 }

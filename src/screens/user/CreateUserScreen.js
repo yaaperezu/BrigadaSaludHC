@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CreateUserUI from '../../components/UI/user/CreateUserUI'
-import ConexionRealm from '../../data'
+import * as BdRealm from '../../data'
 import * as SchemaBD from '../../data/schemas'
 import { Alert } from 'react-native'
 import * as actions from '../../store/actions'
+
+const Realm = require('realm')
 
 class CreateUserScreen extends Component {
 
     constructor(props) {
         super(props)
-
-        this.listarUsuariosApp()
     }
 
     setNavigationColor = (color) => {
@@ -32,12 +32,6 @@ class CreateUserScreen extends Component {
         }
     }
 
-    listarUsuariosApp = () => {
-        let usuarios = ConexionRealm.objects('Usuario')
-        listUsuarios = Object.values(usuarios)
-        return listUsuarios
-    }
-
     render() {
 
         return (
@@ -50,6 +44,7 @@ class CreateUserScreen extends Component {
     }
 
     createUser = (user) => {
+
         let userModelNew = new SchemaBD.UserModel();
         userModelNew.tipoDoc = user.tipoDoc.tipoDoc
         userModelNew.numeroDocumento = user.documento
@@ -59,28 +54,30 @@ class CreateUserScreen extends Component {
         userModelNew.especialidad = user.especialidad.especialidad
         userModelNew.nombreUsuario = user.username
         userModelNew.contrasena = user.password
-        
-        let usuariosApp = ConexionRealm.objects('Usuario').sorted('id', true)
 
-        ConexionRealm.write(() => {
-            var ID = usuariosApp.length > 0 ? usuariosApp[0].id + 1 : 1;
-            
+        Realm.open(BdRealm.dataBaseOptions).then(realm => {
+            const usuariosApp = realm.objects('Usuario').sorted('id', true)
+            const ID = usuariosApp.length > 0 ? usuariosApp[0].id + 1 : 1;
             userModelNew.id = ID;
             userModelNew.createdAt = new Date();
             userModelNew.updatedAt = new Date();
 
-            ConexionRealm.create('Usuario', userModelNew);
-            Alert.alert(
-                'Éxito',
-                'Usuario registrado correctamente',
-                [
-                    {
-                        text: 'Ok',
-                        onPress: () => this.props.navigation.goBack(),
-                    },
-                ],
-                { cancelable: false }
-            );
+            realm.write(() => {
+                realm.create('Usuario', userModelNew);
+                Alert.alert(
+                    'Éxito',
+                    'Usuario registrado correctamente',
+                    [
+                        {
+                            text: 'Ok',
+                            onPress: () => this.props.navigation.goBack(),
+                        },
+                    ],
+                    { cancelable: false }
+                )
+            })
+        }).catch((error) => {
+            console.log(error);
         });
     }
 
@@ -92,7 +89,7 @@ class CreateUserScreen extends Component {
 const mapStateToProps = state => ({
     app: state.app,
     user: state.user
-  });
+});
 const mapDispatchToProps = dispatch => ({
     doLogout: () => dispatch(actions.user.logout())
 });

@@ -15,8 +15,8 @@ class LoginUI extends Component {
         super(props)
 
         this.state = {
-            username: '',
-            password: '',
+            username: 'yaaperez',
+            password: '0627Yasser',
             validateUsername: false,
             validatePassword: false
         }
@@ -91,6 +91,7 @@ class LoginUI extends Component {
     render() {
         return (
             <ScrollView style={{ flex: 1 }}>
+                
                 <Image source={require('../../assets/images/computer-hc-brigada.jpg')}
                     style={stylesLogin.containerImage} />
 
